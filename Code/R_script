@@ -27,6 +27,6 @@ install.packages(imageRy) #meglio installarlo da github
 install.packages("devtools") #remotes
 library(devtools)
 install_github("ducciorocchini/imageRy")
-
+im.list() #test per vedere se va
 #per i codici del prof cercare duccio rocchini su github
 
