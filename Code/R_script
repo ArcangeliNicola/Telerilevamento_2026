@@ -1,0 +1,32 @@
+#First R script
+
+2+3
+#assegnazione degli oggetti
+michele <- 2+3
+tecla<-4+6
+michele+tecla
+michele/tecla
+
+#arrays o vettori
+sonia<-c(10, 8, 3, 1, 0)  #funzione e argomenti
+giorgia<-c(3, 10, 20, 50, 100)
+
+plot(giorgia,sonia) #primo oggetto è la variabile indipendente il secondo la variabile dipendente
+plot(giorgia, sonia, col="blue", pch=2) #pch forma del punto
+plot(giorgia, sonia, col="blue", pch=2, cex=2) #cex=dimensione del punto
+plot(giorgia, sonia, col="blue", pch=2, cex=2, xlab="pfas", ylab="delfini") #etichette
+
+#installazione pacchetti
+# CRAN
+#pacchetto terra
+install.packages("terra")
+library(terra) #richiama il pacchetto
+install.packages(imageRy) #meglio installarlo da github
+
+#Github
+install.packages("devtools") #remotes
+library(devtools)
+install_github("ducciorocchini/imageRy")
+
+#per i codici del prof cercare duccio rocchini su github
+
