@@ -3,6 +3,9 @@
 library(terra)
 library(imageRy)
 library(viridis)
+library(ggplot2)
+library(patchwork)
+
 
 #lista dati
 im.list()
@@ -68,14 +71,56 @@ plot(sentinel$sentinel.dolomites.b4.tif)
 # per richiamare un singolo layer e creare un subset
 plot(sentinel[[4]])
 
-#stack
+# facciamo uno stack
+b2<-im.import("sentinel.dolomites.b2.tif") #blue
+b3<-im.import("sentinel.dolomites.b3.tif") #green
+b4<-im.import("sentinel.dolomites.b4.tif") #red
+b8<-im.import("sentinel.dolomites.b8.tif") #NIR
+sentinel<-c(b2,b3,b4,b8)
+#1=b2 blue, 
+#2=b3 verde, 
+#3=b4 rosso, 
+#4=b8 NIR
+#plotto tutto
+plot(sentinel)
+#plotto solo una banda
+plot(sentinel[[4]]
 
+#installo patchwork, funziona solo su ggplot2
+#creo due plot p1 e p2
+p1<-im.ggplot(b8)
+p2<-im.ggplot(b4)
+#plotto entrambe insieme
+p1+p2
 
+#plot sovrapposti per creare immagini RGB
+#come si fa?
+?im.rgb()
+#facciamolo
+im.plotRGB(sentinel, r=3, g=2, b=1)
+#otteniamo un immagine natural colors, come vedrebbe un umano
+#facciamo un "false color"
+im.plotRGB(sentinel, r=4, g=3, b=2)
+#vediamo che ci sono poche differenze
+im.plotRGB(sentinel, r=3, g=4, b=2)
+im.plotRGB(sentinel, r=2, g=4, b=3)
+im.plotRGB(sentinel, r=1, g=3, b=4)
+#alta correlazione tra le bande del visibili
+#calcoliamola
+pairs(sentinel)
 
+im.plotRGB(sentinel, r=1, g=3, b=4)
 
+#plotting in RGB con pacchetto Terra
+plotRGB(sentinel, r=4, g=3, b=2)
+#non funziona perchè a differenza di im.plotRGB, lo strech lineare non è effettuato
+plotRGB(sentinel, r=4, g=3, b=2, stretch="lin")
+#stretch non lineare
+plotRGB(sentinel, r=4, g=3, b=2, stretch="hist")
+#usato per discriminare alcuni elementi al costo di perdere informazioni sul reale
 
-
-
+#semplifico il codice, non serve esplicitare le componenti
+im.plotRGB(sentinel, 3, 2, 1)
 
 
 
