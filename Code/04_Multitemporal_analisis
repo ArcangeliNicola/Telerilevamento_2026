@@ -42,8 +42,32 @@ dif=gr[[4]]-gr[[1]]
 #RGB
 im.plotRGB(gr, 1,2,4)
 
+#importo dati
+ndvi <- im.import("Sentinel2_NDVI")
+#crea una distribuzione di frequenza
+hist(ndvi)
+#kernel density: distribuzione di frequenza fatta da curve continue
+#im.ridgeline(immagine, scala(altezza massima della curva), palette)
+#installo pacchetto "ggridges"
+install.packages("ggridges")
+library(ggridges)
+im.ridgeline(ndvi, scale=1, palette="viridis")
+#la variabile ha lo stesso nome, quindi il risultato è un singolo plot
+#rinomino le variabili
+names(ndvi)<-c("02feb", "05may", "08aug","11nov")
+#riprovo
+im.ridgeline(ndvi, scale=1, palette="viridis")
+#test scala =2
+im.ridgeline(ndvi, scale=2, palette="viridis")
+#aggiunge un po di tridimensionalità
 
-
+#facciamo uno scatter plot
+plot(ndvi[[1]],ndvi[[2]])
+#aggiungiamo un intercetta
+abline(0,1,col="red")
+# x min -0.3
+# y max 0.9
+plot(ndvi[[1]],ndvi[[2]],xlim=c(-0.3,0.9), ylim=c(-0.3,0.9))
 
 
 
