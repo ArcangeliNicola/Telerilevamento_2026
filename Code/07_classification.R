@@ -1,6 +1,8 @@
 # R code for classyfing images
 library(terra)
 library(imageRy)
+library(ggplot2)
+library(patchwork)
 
 im.list()
 
@@ -59,6 +61,59 @@ tabout<-data.frame(
   class=c("Forest","Human"),
   perc1992=c(83,17),
   perc2006=c(45,55))
+
+#creiamo le funzioni di ggplot
+ggplot(tabout, aes(x=class, y=perc1992, color=class)) + #structure
+geom_bar(stat="identity", fill="white") #bar plot
+
+ggplot(tabout, aes(x=class, y=perc2006, color=class)) + #structure
+geom_bar(stat="identity", fill="white") #bar plot
+
+#usiamo patchwork, prima associamo i grafici ad un oggetto
+p1<-ggplot(tabout, aes(x=class, y=perc1992, color=class)) + #structure
+geom_bar(stat="identity", fill="white") #bar plot
+
+p2<-ggplot(tabout, aes(x=class, y=perc2006, color=class)) + #structure
+geom_bar(stat="identity", fill="white") #bar plot
+
+#sommiamo i grafici
+p1+p2
+#problema le y sono diverse, le colonne sembrano uguali
+
+p1<-ggplot(tabout, aes(x=class, y=perc1992, color=class)) + #structure
+geom_bar(stat="identity", fill="white")+  #bar plot
+ylim(c(0,100)) #limits
+
+p2<-ggplot(tabout, aes(x=class, y=perc2006, color=class)) + #structure
+geom_bar(stat="identity", fill="white")+  #bar plot
+ylim(c(0,100)) #limits
+
+p1+p2
+
+#due legende sono ridondanti, togliamone 1 o anche due
+
+p1<-ggplot(tabout, aes(x=class, y=perc1992, color=class)) + #structure
+geom_bar(stat="identity", fill="white")+  #bar plot
+ylim(c(0,100))+ #limits
+theme(legend.position="none")+ #removing legend
+theme_minimal()
+
+p2<-ggplot(tabout, aes(x=class, y=perc2006, color=class)) + #structure
+geom_bar(stat="identity", fill="white")+  #bar plot
+ylim(c(0,100))+ #limits
+theme(legend.position="none")+ #removing legend
+theme_minimal()
+
+p1+p2
+
+
+
+
+
+
+
+
+
 
 
 
