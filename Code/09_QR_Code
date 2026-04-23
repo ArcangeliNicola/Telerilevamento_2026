@@ -1,0 +1,7 @@
+install.packages("qrcode")
+library("qrcode")
+
+qr<-qr_code("https://github.com/ArcangeliNicola/Telerilevamento_2026/new/main/Code")
+plot(qr)
+
+
