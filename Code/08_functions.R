@@ -43,8 +43,9 @@ setwd("C:\\Scienze e gestione della natura\\Primo anno\\Telerilevamento")
 sink("output.txt") #funzione per salvare la roba bisogna mettere la roba che si vuole salvare dopo
 loop2()   #funzione che viene sincata
 
-
-
+#per disistallare pacchetti si usa la funzione
+#remove.packages("nome del pacchetto)
+#chiedere a Chat per i file .Rd
 
 
 
