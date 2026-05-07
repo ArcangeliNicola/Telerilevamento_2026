@@ -1,0 +1,143 @@
+%tra le quadre le dimensioni del carattere (di base = 10)
+\documentclass[12]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref} %per gli ipertesti 
+\usepackage{lineno} %per il numero di linee
+\usepackage{comment} %per mettere commenti 
+\usepackage{natbib}
+
+\title{Il mio primo documento in LATEX}
+\author{Nicola Arcangeli}
+
+%\date{}
+
+%se si mette un begin serve anche un end
+\begin{document}
+
+%per settare il titolo
+\maketitle
+
+%sommario con ipertesti automatici
+\tableofcontents
+
+%lista delle figure
+\listoffigures
+
+%inserisce una sezione
+\section{Introduzione} \label{sec:intro}
+In questo elaborato vengono presentati i risultati di uno studio fitosociologico sulle 
+tipologie forestali presenti sul territorio altoatesino. L’obiettivo primo è quello di individuare, 
+quantificare e confrontare la diversità delle foreste e procedere con le relative analisi della 
+%aggiunge un'interlinea
+\smallskip %possibile anche \bigskip
+diversità vegetale e funzionale degli hotspot. Per l’analisi della vegetazione e in particolar modo 
+per la tipizzazione delle foreste dell’Alto Adige ci si è avvalsi di un database comprendente 924 
+rilievi e 1241 specie di piante. Nella scelta delle tipologie forestali sono stati esaminati tre tipi 
+di vegetazione: Lariceti, Larici-Cembreti e Cembreti puri.
+
+%sta roba non va più bene ma nel dubbio meglio tenerla
+
+\begin{comment}
+I canali di bonifica si sono rivelati essere un luogo fondamentale pe
+la conservazione delle specie e degli ecosistemi tipici delle zone umide interne (Bolpagni et al. 2019, Cantonati et al. 
+2020, van Rees et al. 2020) che sono tra i più minacciati al mondo (Reid et al. 2019, Dudgeon 
+2019). Inoltre la rete dei canali di bonifica è essenziale perché mette in relazione le zone umide 
+piccole e isolate, che sono quelle a maggiore rischio di estinzione (Deane et al. 2017). I risultati 
+dello studio di Deane et al. (2017) hanno rafforzato questa idea dimostrando che, a parità di 
+perdita di superficie, la scomparsa di intere zone umide, anche se piccole, comporta un rischio 
+di estinzione per le specie molto più elevato rispetto alla perdita della stessa superficie suddivisa
+\end{comment}
+
+
+
+
+\section{Metodi}
+In questa tesi è stata utilizzata l'equazione di Newton, raccolta nell'equazione \ref{eq:newton} %automatizza il riferimento
+
+%scriviamo una formula, \frac per far vedere la frazione
+% underscore(_) per i pedici
+%sqrt per la radice quadrata, tra [] la potenza della radice
+\begin{equation}
+F=G
+\end{equation}
+
+\begin{equation}
+F=G\times\frac{\sqrt{m_1\times \sqrt[3]{m_2}}}{r^2}
+%mettiamo una label
+\label{eq:newton}
+\end{equation}
+
+Come visto nella sezione \ref{sec:intro} %per linkare direttamente l'introduzione
+
+Per la tesi sono stati usati
+%elenchi puntati
+\begin{itemize}
+    \item analisi multitemporale
+    \item analisi multivariata
+    \item analisi multispazzolata
+\noindent
+\end{itemize}
+%elenco numerato
+\begin{enumerate}
+   \item analisi multitemporale
+    \item analisi multivariata
+    \item analisi multispazzolata
+\end{enumerate}
+
+
+\section{Risultati}
+
+Sulla base delle metodologie utilizzate abbiamo ottenuto i risultati riportati in Figura \ref{fig:zone} %importante fare le ref per non avere problemi in futuro
+
+%inserisco figura
+\begin{figure}
+    \centering
+   %funzione che inserisce la figura
+    \includegraphics[width=\linewidth]{Zoniz. PAAM.png}
+    \caption{Bella Zonizzazione}
+    \label{fig:zone}
+\end{figure}
+
+Ma anche la figura \ref{fig:mappa} non è male eh
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{Mappona.png}
+    \caption{Mappona}
+    \label{fig:mappa}
+\end{figure}
+
+\section{Discussione}
+
+Protected areas (PAs) often use zoning schemes to balance biodiversity conservation and sustainable human 
+use, typically dividing the PA into fully protected zones and others permitting varying \citep{Maeda2005}levels of activity, in line 
+with UNESCO and International Union for Conservation of Nature visions. However, the effectiveness of 
+zoning in protecting biodiversity is rarely assessed. We reviewed the scientific literature, screening 3,783 ar
+ticles and identifying only 60 that specifically evaluated zoning effects on biodiversity. We observed \citep{Miller2017}
+geographic, environmental, and taxonomic biases: there are few studies in regions where zoned PAs are 
+widely implemented (e.g., Europe); 75% focused on marine environments, none in freshwater, and most tar
+geted vertebrates, particularly fish. Biodiversity was mainly measured through species diversity and abun
+dance, often from a fisheries management perspective. Critically, few studies assessed biodiversity adapt
+ability to global change—a key 2050 Global Biodiversity Framework target. This lack of comprehensive 
+assessment hinders informed conservation decisions. We propose a blueprint for multifaceted biodiversity 
+monitoring to support holistic evaluations of zoning effectiveness
+%test per la bibiliografia
+(Rocchini et al., 2025) %non funzionale
+\citep{Uyen2025}
+
+
+\begin{thebibliography}{999}
+%[tra le quadre come deve comparire] {tra le graffe la "label"}
+% usare \& al posto di &
+\bibitem[Miller, J. D. (2017)]{Miller2017}
+Miller, J. D. (2017). Reproduction in sea turtles. The Biology of Sea Turtles, Volume I, 51-81.
+%
+\bibitem[Uyen et al. (2025)]{Uyen2025} 
+Uyen, B. T., Marchetto, E., Tordoni, E., \& Rocchini, D. (2025). From virtuality-to-reality: testing the effects of occurrence-based temporal settings on species distribution modeling prediction. Community Ecology, 1-12.
+
+\bibitem[Maeda et al. (2005)]{Maeda2005}
+Maeda, T., Hobbs, R. M., \& Pandolfi, P. P. (2005). The transcription factor Pokemon: a new key player in cancer pathogenesis. Cancer research, 65(19), 8575-8578.
+\end{thebibliography}
+
+
+\end{document}
