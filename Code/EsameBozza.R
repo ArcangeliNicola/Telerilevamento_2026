@@ -239,3 +239,37 @@ Messaggio di avvertimento:
 > nirC<-im.classify(ndvi16, seed=42, num_clusters=2)
 > plot(ndvi26, col=viridis(100))
 > nirC<-im.classify(ndvi26, seed=42, num_clusters=2)
+
+im.multiframe(2,2)
+plot(ndvi16, col=viridis(100))
+ndvi16C<-im.classify(ndvi16, seed=42, num_clusters=2)
+plot(ndvi26, col=viridis(100))
+ndvi26C<-im.classify(ndvi26, seed=42, num_clusters=2)
+
+# Calculating frequencies
+fndvi16 <- freq(ndvi16C) 
+fndvi26 <- freq(ndvi26C) 
+
+propndvi16 <- fndvi16$count / ncell(ndvi16C)
+propndvi26 <- fndvi26$count / ncell(ndvi26C)
+
+percndvi16 <- propndvi16 * 100
+percndvi26 <- propndvi26 * 100
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
