@@ -55,6 +55,16 @@ plot(ndvi16, col=inferno(100))
 plot(ndvi17, col=inferno(100))
 plot(ndvi25, col=inferno(100))
 
+#Ridgeline
+ndvi<-c(ndvi16,ndvi17,ndvi25)
+im.ridgeline(ndvi, scale=1, palette="inferno")
+
+
+
+
+
+
+
 
 
 
