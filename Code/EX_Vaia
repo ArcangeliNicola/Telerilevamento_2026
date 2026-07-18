@@ -1,0 +1,81 @@
+library(terra)
+library(imageRy)
+library(viridis)
+library(ggplot2)
+library(ggridges)
+
+setwd("C:\\Scienze e gestione della natura\\Primo anno\\Telerilevamento\\EsameVaia")
+getwd()
+list.files()
+
+#richiamo le bande utili
+b18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B02_(Raw).jpg"))
+g18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B03_(Raw).jpg"))
+r18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B04_(Raw).jpg"))
+nir18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B08_(Raw).jpg"))
+
+b19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B02_(Raw).jpg"))
+g19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B03_(Raw).jpg"))
+r19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B04_(Raw).jpg"))
+nir19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B08_(Raw).jpg"))
+
+b25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B02_(Raw).jpg"))
+g25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B03_(Raw).jpg"))
+r25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B04_(Raw).jpg"))
+nir25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B08_(Raw).jpg"))
+
+#Creo stack
+T18<-c(r18, g18, b18,nir18)
+T19<-c(r19, g19, b19,nir19)
+T25<-c(r25, g25, b25,nir25)
+
+#Plot RGB con Red=NIR
+im.multiframe(1,3)
+im.plotRGB(T18, 4,2,3)
+im.plotRGB(T19, 4,2,3)
+im.plotRGB(T25, 4,2,3)
+
+#DVI
+dvi18<-im.dvi(T18,4,1)
+dvi19<-im.dvi(T19,4,1)
+dvi25<-im.dvi(T25,4,1)
+
+im.multiframe(1,3)
+plot(dvi18, col=viridis(100))
+plot(dvi19, col=viridis(100))
+plot(dvi25, col=viridis(100))
+
+#NDVI
+ndvi18<-im.ndvi(T18,4,1)
+ndvi19<-im.ndvi(T19,4,1)
+ndvi25<-im.ndvi(T25,4,1)
+
+im.multiframe(1,3)
+plot(ndvi18, col=inferno(100))
+plot(ndvi19, col=inferno(100))
+plot(ndvi25, col=inferno(100))
+
+#Ridgeline
+ndvi<-c(ndvi18,ndvi19,ndvi25)
+im.ridgeline(ndvi, scale=1, palette="inferno")
+
+#delta ndvi
+Dndvi19_18<-ndvi19 - ndvi18
+Dndvi25_18<-ndvi25 - ndvi18
+
+im.multiframe(1,2)
+plot(Dndvi19_18, col=inferno(100))
+plot(Dndvi25_18, col=inferno(100))
+
+
+
+
+
+
+
+
+
+
+
+
+
