@@ -28,7 +28,9 @@ causati dalla tempesta ed osservare e quantificare l'entità della ricrescita av
 L'area di studio su cui sono state effettuate le indagini si trova al confine tra Veneto e Trentino Alto Adige, nella parte nord-orientale
 dell'Altopiano dei Sette Comuni e comprende in buona parte la Piana di Marcesina, una zona di importantissimo valore ambientale. 
 
+<img width="1528" height="731" alt="2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_True_color" src="https://github.com/user-attachments/assets/52cfccd3-1d79-4e90-9c96-3fcd1478eb30" />
 
+>Mappa della zona di studio, orientata in direzione nord, ottenuta tramite Browser Copernicus
 
 
 
