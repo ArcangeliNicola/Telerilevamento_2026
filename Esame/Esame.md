@@ -16,13 +16,17 @@ abbattute sulle regioni Alpine, in particolare nelle aree di Nord Est provocando
 vegetazione, in particolare è stata coinvolta una superficie forestale complessiva di 38 216.00 ettari e una
 massa legnosa di 16 538 284.70 m<sup>3</sup> ([Mappatura delle superfici forestali danneggiate dalla tempesta Vaia](https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18158)).
 
-<img src="https://github.com/ArcangeliNicola/Telerilevamento_2026/blob/824507c36153e86908b2bbb19f150225d04a5e13/Esame/immagini/Mappa_delle_superfici_forestali_danneggiate_dalla_tempesta_Vaia.jpg" />
+<img width="750" height="500" alt="Mappa_delle_superfici_forestali_danneggiate_dalla_tempesta_Vaia" src="https://github.com/user-attachments/assets/e05dff60-1200-4dbd-8b21-1a3a85650906" />
 
+>Mappa dei danni forestali stilata dal MASAF ex-MIPAAF
 
+L'obbiettivo di questo lavoro è utilizzare immagini satellitari e appositi indici spettrali per analizzare i danni 
+causati dalla tempesta ed osservare e quantificare l'entità della ricrescita avvenuta negli ultimi anni.
 
+## 2. Area di studio e metodologie
 
-
-
+L'area di studio su cui sono state effettuate le indagini si trova al confine tra Veneto e Trentino Alto Adige, nella parte nord-orientale
+dell'Altopiano dei Sette Comuni e comprende in buona parte la Piana di Marcesina, una zona di importantissimo valore ambientale. 
 
 
 
