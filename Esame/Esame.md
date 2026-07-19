@@ -79,6 +79,10 @@ r25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B04_(Raw).jpg")
 nir25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B08_(Raw).jpg")) # Near-Infrared 2025
 swir25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B11_(Raw).jpg")) # Short-Wave Infrared 2025
 
+#Compongo gli stack
+T18<-c(r18, g18, b18, nir18, swir18)
+T19<-c(r19, g19, b19, nir19, swir19)
+T25<-c(r25, g25, b25, nir25, swir25)
 ```
 
 
