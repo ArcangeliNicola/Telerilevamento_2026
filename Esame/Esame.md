@@ -45,7 +45,7 @@ ottenute sono stati calcolati i seguenti indici spettrali:
 
 Le analisi sono state condotte in ambiente R tramite i seguenti pacchetti:
 
-```r
+```
 library(terra)      # Pacchetto per maneggiare facilmente immagini satellitari
 library(viridis)    # Pacchetto che aggiunge scale colori per utenti affetti da daltonismo
 library(ggplot2)    # Per la creazione di grafici
@@ -54,8 +54,11 @@ library(imageRy)    # Pacchetto per svolgere più agilmente determinati compiti
 
 ## Preparazione delle immagini
 
-Le immagini sono state caricate in R tramite le funzioni `rast` del pacchetto `terra` 
+Le immagini sono state caricate in R tramite le funzioni `rast` del pacchetto `terra`:
 
+
+
+`
 
 
 
