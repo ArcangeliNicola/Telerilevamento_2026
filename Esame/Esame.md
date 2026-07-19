@@ -16,6 +16,7 @@ abbattute sulle regioni Alpine, in particolare nelle aree di Nord Est provocando
 vegetazione, in particolare è stata coinvolta una superficie forestale complessiva di 38 216.00 ettari e una
 massa legnosa di 16 538 284.70 m<sup>3</sup> ([Mappatura delle superfici forestali danneggiate dalla tempesta Vaia](https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18158)).
 
+<img src="" />
 
 
 
