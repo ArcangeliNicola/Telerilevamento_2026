@@ -129,27 +129,13 @@ plot(ndvi25, col = inferno(100), range = c(0,1), main = "NDVI 2025")
 dev.off()
 
 # calcolo dell'indice BSI
-
-bsi <- function(x, red, blue, nir, swir){
-  
-  if(!inherits(x, "SpatRaster")) {
-    stop("Input image should be a SpatRaster object.")
-  }
-  
-  if(!inherits(nir, "numeric") | !inherits(red, "numeric") | !inherits(blue, "numeric") | !inherits(swir, "numeric"))  {
-    stop("red, blue, NIR and SWIR layers should be indicated with a number")
-  }
-  
-  bsi = (x[[swir]] + x[[red]] + x[[nir]] + x[[blue]]) / ((x[[swir]] + x[[red]]) - (x[[nir]] + x[[blue]]))
- 
-  return(bsi)
-  
-}
-
-
-
-
-
+bsi18<-bsi(T18, 1, 3, 4, 5) # utilizzo la funzione bsi() ottenuta dal pacchetto "BSI"
+bsi19<-bsi(T19, 1, 3, 4, 5)
+bsi25<-bsi(T25, 1, 3, 4, 5)
+#visualizzazione dell'indice
+bsi<-c(bsi18, bsi19, bsi25)
+names(bsi)<-c("BSI 2018", "BSI 2019", "BSI 2025")
+plot(bsi, col = inferno(100), range = c(-1,1))
 
 
 
