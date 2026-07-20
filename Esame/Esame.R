@@ -48,7 +48,7 @@ plot(T18, col=viridis(100))
 plot(T19, col=viridis(100))
 plot(T25, col=viridis(100))
 
-# esportazione delle singole bande
+# esportazione delle singole bande per ogni periodo analizzato
 
 png("Tutte_le_bande_2018.png") # 2018
 plot(T18, col=viridis(100))
