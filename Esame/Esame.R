@@ -43,6 +43,24 @@ names(T18) <- c("Rosso (B4)", "Verde (B3)", "Blu (B2)", "NIR (B8)", "SWIR (B12)"
 names(T19) <- c("Rosso (B4)", "Verde (B3)", "Blu (B2)", "NIR (B8)", "SWIR (B12)")
 names(T25) <- c("Rosso (B4)", "Verde (B3)", "Blu (B2)", "NIR (B8)", "SWIR (B12)")
 
+# visualizzo le singole bande tramite gli stack
+plot(T18, col=viridis(100))
+plot(T19, col=viridis(100))
+plot(T25, col=viridis(100))
+
+# esportazione delle singole bande
+
+png("Tutte_le_bande_2018.png") # 2018
+plot(T18, col=viridis(100))
+dev.off()
+
+png("Tutte_le_bande_2019.png") # 2019
+plot(T19, col=viridis(100))
+dev.off()
+
+png("Tutte_le_bande_2025.png") # 2025
+plot(T25, col=viridis(100))
+dev.off()
 
 #Plot RGB con Red=NIR
 im.multiframe(1,3)
