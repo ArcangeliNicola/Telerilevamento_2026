@@ -193,17 +193,21 @@ plot(ndvi25, col=inferno(100), range = c(0,1))
 
 ### BSI  (Bare Soil Index)
 
-$` BSI = ((SWIR + RED) + (NIR + BLUE)) / ((SWIR + RED) − (NIR + BLUE)) `$
+$` BSI=\frac{((SWIR1+Red)−(NIR+Blue)}{(SWIR1+Red)+(NIR+Blue)} `$
 
 L'indice BSI è utilizzato per evidenziare il suolo nudo o eroso. Spesso viene utilizzato per evidenziare la desertificazione o i cambiamenti nello stato del suolo, in questo caso viene utilizzato a scopo esplorativo per osservare quali risultati si ottengono se applicato all'analisi di vegetazione arborea abbattuta da un evento atmosferico.
 
 ```
-
+# calcolo dell'indice BSI
+bsi18<-bsi(T18, 1, 3, 4, 5) # utilizzo la funzione bsi() ottenuta dal pacchetto "BSI"
+bsi19<-bsi(T19, 1, 3, 4, 5)
+bsi25<-bsi(T25, 1, 3, 4, 5)
+#visualizzazione dell'indice
+bsi<-c(bsi18, bsi19, bsi25)
+names(bsi)<-c("BSI 2018", "BSI 2019", "BSI 2025")
+plot(bsi, col = inferno(100), range = c(-1,1))
 ```
-
-
-
-
+<img width="600" height="600" alt="BSI" src="https://github.com/user-attachments/assets/3a51d85d-3a2d-408f-8ae2-6cc83a4cd844" />
 
 
 
