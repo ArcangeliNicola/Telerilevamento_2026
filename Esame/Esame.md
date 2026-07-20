@@ -64,7 +64,7 @@ corretto orientamento. Le bande caricate sono:
 
 
 ```
-setwd("C:\\Scienze e gestione della natura\\Primo anno\\Telerilevamento\\EsameVaia") #per configurare la cartella di lavoro principale
+setwd("C:\\Scienze e gestione della natura\\Primo anno\\Telerilevamento\\Esame Vaia") #per configurare la cartella di lavoro principale
 list.files() # per richiamare la lista dei file contenuti nella cartella
 
 b18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B02_(Raw).jpg")) # blu 2018
@@ -187,6 +187,35 @@ plot(ndvi18, col=inferno(100), range = c(0,1))
 plot(ndvi19, col=inferno(100), range = c(0,1)) 
 plot(ndvi25, col=inferno(100), range = c(0,1))
 ```
+<img width="720" height="300" alt="NDVI2" src="https://github.com/user-attachments/assets/ef7fdd0d-bbc9-415d-a66b-e7025e4f3e1f" />
+
+> Tramite l'indice si possono identificare molto bene le aree che sono state danneggiate dalla tempesta tramite l'immagine dell'anno 2019, si può osservare anche come la vegetazione si sia ripresa in tempi recenti tuttavia sono ancora evidenti le differenze rispetto allo stato precedente all'evento
+
+### BSI  (Bare Soil Index)
+
+$` BSI = ((SWIR + RED) + (NIR + BLUE)) / ((SWIR + RED) − (NIR + BLUE)) `$
+
+L'indice BSI è utilizzato per evidenziare il suolo nudo o eroso. Spesso viene utilizzato per evidenziare la desertificazione o i cambiamenti nello stato del suolo, in questo caso viene utilizzato a scopo esplorativo per osservare quali risultati si ottengono se applicato all'analisi di vegetazione arborea abbattuta da un evento atmosferico.
+
+```
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
