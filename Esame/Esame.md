@@ -55,7 +55,13 @@ library(imageRy)    # Pacchetto per svolgere più agilmente determinati compiti
 ## Preparazione delle immagini
 
 Le immagini sono state caricate in R tramite le funzioni `rast()` del pacchetto `terra`, è inoltre stat usata la funzione `flip()` per riportare le immagini al
-corretto orientamento:
+corretto orientamento. Le bande caricate sono:
+- Blu (B2), 0.490 µm, risoluzione 10m
+- Verde (B3), 0.560 µm, risoluzione 10m
+- Rosso (B4), 0.665 µm, risoluzione 10m
+- Near-Infrared (B8), 0.842 µm, risoluzione 10m
+- Short-Wave Infrared (B11), 1.610 µm, risoluzione 20m
+
 
 ```
 setwd("C:\\Scienze e gestione della natura\\Primo anno\\Telerilevamento\\EsameVaia") #per configurare la cartella di lavoro principale
@@ -79,13 +85,21 @@ r25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B04_(Raw).jpg")
 nir25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B08_(Raw).jpg")) # Near-Infrared 2025
 swir25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B11_(Raw).jpg")) # Short-Wave Infrared 2025
 
-#Compongo gli stack
+# effettuo il ricampionamento della banda dello SWIR ad una risoluzione spaziale di 10m per poterla confrontare con le altre bande (B2, B3, B4, B8)
+swir18<-resample(swir18, b18)
+swir19<-resample(swir25, b19)
+swir25<-resample(swir25, b25)
+
+# compongo gli stack 
 T18<-c(r18, g18, b18, nir18, swir18)
 T19<-c(r19, g19, b19, nir19, swir19)
 T25<-c(r25, g25, b25, nir25, swir25)
+
+# rinomino i componenti degli stack creati
+names(T18) <- c("Rosso (B4)", "Verde (B3)", "Blu (B2)", "NIR (B8)", "SWIR (B12)")
+names(T19) <- c("Rosso (B4)", "Verde (B3)", "Blu (B2)", "NIR (B8)", "SWIR (B12)")
+names(T25) <- c("Rosso (B4)", "Verde (B3)", "Blu (B2)", "NIR (B8)", "SWIR (B12)")
 ```
-
-
 
 
 
