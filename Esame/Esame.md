@@ -86,7 +86,7 @@ nir25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B08_(Raw).jpg
 swir25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B11_(Raw).jpg")) # Short-Wave Infrared 2025
 
 # effettuo il ricampionamento della banda dello SWIR ad una risoluzione spaziale di 10m per poterla confrontare con le altre bande (B2, B3, B4, B8)
-swir18<-resample(swir18, b18)
+swir18<-resample(swir18, b18)  # ricampiona il primo oggetto indicato alla risoluzione del secondo
 swir19<-resample(swir25, b19)
 swir25<-resample(swir25, b25)
 
@@ -103,7 +103,7 @@ names(T25) <- c("Rosso (B4)", "Verde (B3)", "Blu (B2)", "NIR (B8)", "SWIR (B12)"
 
 ## 4. Visualizzazione delle singole bande spettrali
 
-Prima di procedere con il calcolo degli indici osserviamo singolarmente le bande, questa operazione oltre a permettere di fare qualche 
+Prima di procedere con il calcolo degli indici si osservano singolarmente le bande, questa operazione oltre a permettere di fare qualche 
 considerazione è utile per verificare che le operazioni precedenti siano state svolte correttamente.
 
 ### Settembre 2018, condizione precedente
@@ -129,11 +129,41 @@ plot(T25, col=viridis(100))
 
 >Si osserva una piccola ripresa tuttavia la vegetazione è ancora molto diversa da quella pre-impatto
 
+## 5. Elaborazione di composizioni RGB con colori veritieri e falsati
 
+Sono state composte, tramite le singole bande, delle immagini a colori veri, al fine di osservare la zona d'interesse per come appare all'occhio umano, e 
+falsati, per evidenziare la presenza di vegetazione. La funzione utilizzata è `plotRGB()` che permette di scegliere le singole bande che costituiranno l'immagine.
 
+```
+im.multiframe(2,3) # per visualizzare tutte le immagini seguenti contemporaneamente
+plotRGB(T18, 1, 2, 3, stretch = "lin", main = "2018 (pre)") # vengono indicati solo le posizioni all'interno degli stack, l'ordine è rosso-verde-blu
+plotRGB(T19, 1, 2, 3, stretch = "lin", main = "2019 (post)")
+plotRGB(T25, 1, 2, 3, stretch = "lin", main = "2025 (recente)")
+plotRGB(T18, 4, 2, 3, stretch = "lin", main = "2018 falsi colori") # viene inserita la banda del NIR al posto di quella del rosso per evidenziare la vegetazione
+plotRGB(T19, 4, 2, 3, stretch = "lin", main = "2019 falsi colori")
+plotRGB(T25, 4, 2, 3, stretch = "lin", main = "2025 falsi colori")
 
+# è possibile chiudere il multiframe con la funzione dev.off()
+```
+<img width="750" height="750" alt="Colori veritieri e falsati" src="https://github.com/user-attachments/assets/e870af5f-1b48-4874-b02e-e8bb8f7d7239" />
 
+> Tramite queste immagini si può osservare l'entità dei danni, in particolare la notevole perdita di copertura vegetazionale dell'altopiano della Marcesina tra prima e dopo la tempesta (immagini del 2018 e 2019)
 
+## 6. Indici spettrali di vegetazione: DVI e NDVI
+
+### DVI (Different Vegetation Index)
+$` DVI = NIR - RED `$
+
+Il DVI è un indice che si basa sull'alta riflettanza delle piante allo spettro del NIR, ed è spesso utilizzato per analizzare la copertura vegetale e lo stato di salute della vegetazione, non essendo normalizzato le comparazioni tra immagini diverse devono essere affrontate cautamente. Per calcolarlo è stata utilizzata la funzione `im.dvi()`.
+
+```
+dvi18<-im.dvi(T18,4,1) # la funzione "im.dvi()" elabora automaticamente le bande NIR e rosso
+dvi19<-im.dvi(T19,4,1)
+dvi25<-im.dvi(T25,4,1)
+DVI<-c(dvi18, dvi19, dvi25) # si crea uno stack con tutti gli indici DVI
+names(DVI) <- c("DVI 2018", "DVI 2019", "DVI 2025") # si rinominano le componenti
+plot(DVI, col = mako(100)) 
+```
 
 
 
