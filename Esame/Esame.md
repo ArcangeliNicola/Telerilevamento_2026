@@ -161,17 +161,32 @@ dvi18<-im.dvi(T18,4,1) # la funzione "im.dvi()" elabora automaticamente le bande
 dvi19<-im.dvi(T19,4,1)
 dvi25<-im.dvi(T25,4,1)
 im.multiframe(1,3) # in questo caso si preferiscono i risultati sulla stessa riga
-plot(dvi18, col=mako(100), main = "DVI 2018")
-plot(dvi19, col=mako(100), main = "DVI 2019")
-plot(dvi25, col=mako(100), main = "DVI 2025")
+plot(dvi18, col = mako(100), main = "DVI 2018")
+plot(dvi19, col = mako(100), main = "DVI 2019")
+plot(dvi25, col = mako(100), main = "DVI 2025")
+#dev.off()
 ```
-<img width="600" height="600" alt="DVI2" src="https://github.com/user-attachments/assets/b95e068a-5b25-4deb-a37d-32f8789d3c20" />
+<img width="720" height="300" alt="DVI2 1" src="https://github.com/user-attachments/assets/7d52e4c8-97ba-46d9-83f9-941125b71f38" />
 
+>L'indice non permette di estrarre molte informazioni, per questo si utilizza un indice normalizzato come NDVI
 
+### NDVI (Normalized Different Vegetation Index)
+$` NDVI = \frac{NIR - RED}{NIR + RED} `$
 
+NDVI è la versione normalizzata del DVI che può assumere valori compresi tra -1 ed 1, grazie a questa caratteristica permette di eseguire confronti più accurati tra immagini diverse tenendo conto della differente luminosità e di differenti risoluzioni radiometriche. Viene utilizzato in ambito agricolo per analizzare la produttività ed in ambito ecologico per monitorare lo stato di salute della vegetazione. Per calcolare questo indice è stata utilizzata la funzione `im.ndvi()`.
 
-
-
+```
+ndvi18<-im.ndvi(T18,4,1)
+ndvi19<-im.ndvi(T19,4,1)
+ndvi25<-im.ndvi(T25,4,1)
+im.multiframe(1,3) # anche in questo caso si preferiscono i risultati sulla stessa riga
+# si utilizza un intervallo compreso tra 0-1 in quanto si osservano pochi valori al di sotto di 0,
+# che saranno indicati come no-data e colorati di bianco
+# l'utilizzo di un intervallo definito permette di confrontare le colorazioni tra loro evidenziando maggiormente le differenze
+plot(ndvi18, col=inferno(100), range = c(0,1)) 
+plot(ndvi19, col=inferno(100), range = c(0,1)) 
+plot(ndvi25, col=inferno(100), range = c(0,1))
+```
 
 
 
