@@ -106,10 +106,45 @@ names(T25) <- c("Rosso (B4)", "Verde (B3)", "Blu (B2)", "NIR (B8)", "SWIR (B12)"
 Prima di procedere con il calcolo degli indici osserviamo singolarmente le bande, questa operazione oltre a permettere di fare qualche 
 considerazione è utile per verificare che le operazioni precedenti siano state svolte correttamente.
 
-### Settembre 2018, condizione prima della tempesta
+### Settembre 2018, condizione precedente
 ```
 plot(T18, col=viridis(100))
 ```
+
+<img width="600" height="600" alt="Tutte_le_bande_2018" src="https://github.com/user-attachments/assets/9190ea38-c59e-4820-958e-3aa803d7817f" />
+
+>In queste immagini sono evidenti i contorni dell'altopiano, specialmente tramite la banda dello SWIR
+### Settembre 2019, condizione dopo un anno
+```
+plot(T19, col=viridis(100))
+```
+<img width="600" height="600" alt="Tutte_le_bande_2019" src="https://github.com/user-attachments/assets/e80e5875-5ce1-4c9e-acd1-4faf8ae4a239" />
+
+>Si possono osservare i danni provocati dalla tempesta
+### Settembre 2025, condizione recente
+```
+plot(T25, col=viridis(100))
+```
+<img width="600" height="600" alt="Tutte_le_bande_2025" src="https://github.com/user-attachments/assets/e8fe6ea4-c63e-45a3-b63f-0d8702d10348" />
+
+>Si osserva una piccola ripresa tuttavia la vegetazione è ancora molto diversa da quella pre-impatto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
