@@ -5,7 +5,7 @@ library(ggplot2)    # Per la creazione di grafici
 library(imageRy)    # Pacchetto per svolgere più agilmente determinati compiti
 
 # imposto la cartella di riferimento
-setwd("C:\\Scienze e gestione della natura\\Primo anno\\Telerilevamento\\EsameVaia")
+setwd("C:\\Scienze e gestione della natura\\Primo anno\\Telerilevamento\\Esame Vaia")
 getwd()
 list.files() # richiama l'elenco dei files contenuti nella cartella
 
@@ -126,6 +126,56 @@ plot(ndvi18, col = inferno(100), range = c(0,1), main = "NDVI 2018")
 plot(ndvi19, col = inferno(100), range = c(0,1), main = "NDVI 2019")
 plot(ndvi25, col = inferno(100), range = c(0,1), main = "NDVI 2025")
 dev.off()
+
+# calcolo dell'indice BSI
+
+bsi <- function(x, red, blue, nir, swir){
+  
+  if(!inherits(x, "SpatRaster")) {
+    stop("Input image should be a SpatRaster object.")
+  }
+  
+  if(!inherits(nir, "numeric") | !inherits(red, "numeric") | !inherits(blue, "numeric") | !inherits(swir, "numeric"))  {
+    stop("red, blue, NIR and SWIR layers should be indicated with a number")
+  }
+  
+  bsi = (x[[swir]] + x[[red]] + x[[nir]] + x[[blue]]) / ((x[[swir]] + x[[red]]) - (x[[nir]] + x[[blue]]))
+ 
+  return(bsi)
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+prova(r18,b18,nir18, swir18)
+prova(r19,b19,nir19, swir19)
+
+
+
+
+
+
+
 
 #Ridgeline
 ndvi<-c(ndvi18, ndvi19, ndvi25)
