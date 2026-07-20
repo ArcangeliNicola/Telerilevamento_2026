@@ -115,16 +115,16 @@ ndvi25<-im.ndvi(T25,4,1)
 im.multiframe(1,3) # anche in questo caso si preferiscono i risultati sulla stessa riga
 # si utilizza il range 0-1 in quanto si osservano pochi valori al di sotto di 0, che saranno indicati come no-data e colorati di bianco
 # l'utilizzo di un range definito permette di confrontare le colorazioni tra loro evidenziando maggiormente le differenze
-plot(ndvi18, col=inferno(100), range = c(0,1)) 
-plot(ndvi19, col=inferno(100), range = c(0,1)) 
-plot(ndvi25, col=inferno(100), range = c(0,1))
+plot(ndvi18, col=inferno(100), range = c(0,1), main = "NDVI 2018") 
+plot(ndvi19, col=inferno(100), range = c(0,1), main = "NDVI 2019") 
+plot(ndvi25, col=inferno(100), range = c(0,1), main = "NDVI 2025")
 
 # esportazione delle immagini ottenute, indice NDVI
 png("NDVI.png")
 im.multiframe(1,3)
-plot(dvi18, col = inferno(100), main = "NDVI 2018")
-plot(dvi19, col = inferno(100), main = "NDVI 2019")
-plot(dvi25, col = inferno(100), main = "NDVI 2025")
+plot(ndvi18, col = inferno(100), range = c(0,1), main = "NDVI 2018")
+plot(ndvi19, col = inferno(100), range = c(0,1), main = "NDVI 2019")
+plot(ndvi25, col = inferno(100), range = c(0,1), main = "NDVI 2025")
 dev.off()
 
 #Ridgeline
