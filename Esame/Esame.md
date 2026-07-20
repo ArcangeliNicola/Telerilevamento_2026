@@ -52,7 +52,7 @@ library(ggplot2)    # Per la creazione di grafici
 library(imageRy)    # Pacchetto per svolgere più agilmente determinati compiti
 ```
 
-## Preparazione delle immagini
+## 3. Preparazione delle immagini
 
 Le immagini sono state caricate in R tramite le funzioni `rast()` del pacchetto `terra`, è inoltre stat usata la funzione `flip()` per riportare le immagini al
 corretto orientamento. Le bande caricate sono:
@@ -101,12 +101,15 @@ names(T19) <- c("Rosso (B4)", "Verde (B3)", "Blu (B2)", "NIR (B8)", "SWIR (B12)"
 names(T25) <- c("Rosso (B4)", "Verde (B3)", "Blu (B2)", "NIR (B8)", "SWIR (B12)")
 ```
 
+## 4. Visualizzazione delle singole bande spettrali
 
+Prima di procedere con il calcolo degli indici osserviamo singolarmente le bande, questa operazione oltre a permettere di fare qualche 
+considerazione è utile per verificare che le operazioni precedenti siano state svolte correttamente.
 
-
-
-
-
+### Settembre 2018, condizione prima della tempesta
+```
+plot(T18, col=viridis(100))
+```
 
 
 
