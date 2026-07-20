@@ -3,7 +3,7 @@ library(terra)      # Pacchetto per maneggiare facilmente immagini satellitari
 library(viridis)    # Pacchetto che aggiunge scale colori per utenti affetti da daltonismo
 library(ggplot2)    # Per la creazione di grafici
 library(imageRy)    # Pacchetto per svolgere più agilmente determinati compiti
-library(bsi)
+library(BSI)        # Pacchetto per calcolare agilmente il Bare Soil Index
 
 # imposto la cartella di riferimento
 setwd("C:\\Scienze e gestione della natura\\Primo anno\\Telerilevamento\\Esame Vaia")
