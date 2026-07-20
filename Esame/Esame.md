@@ -160,12 +160,12 @@ Il DVI è un indice che si basa sull'alta riflettanza delle piante allo spettro 
 dvi18<-im.dvi(T18,4,1) # la funzione "im.dvi()" elabora automaticamente le bande NIR e rosso
 dvi19<-im.dvi(T19,4,1)
 dvi25<-im.dvi(T25,4,1)
-DVI<-c(dvi18, dvi19, dvi25) # si crea uno stack con tutti gli indici DVI
-names(DVI) <- c("DVI 2018", "DVI 2019", "DVI 2025") # si rinominano le componenti
-plot(DVI, col = mako(100)) 
+im.multiframe(1,3) # in questo caso si preferiscono i risultati sulla stessa riga
+plot(dvi18, col=mako(100), main = "DVI 2018")
+plot(dvi19, col=mako(100), main = "DVI 2019")
+plot(dvi25, col=mako(100), main = "DVI 2025")
 ```
-
-
+<img width="600" height="600" alt="DVI2" src="https://github.com/user-attachments/assets/b95e068a-5b25-4deb-a37d-32f8789d3c20" />
 
 
 
