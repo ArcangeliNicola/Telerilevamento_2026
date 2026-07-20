@@ -96,30 +96,40 @@ dvi18<-im.dvi(T18,4,1) # la funzione "im.dvi()" elabora automaticamente le bande
 dvi19<-im.dvi(T19,4,1)
 dvi25<-im.dvi(T25,4,1)
 im.multiframe(1,3) # in questo caso si preferiscono i risultati sulla stessa riga
-plot(dvi18, col=mako(100), main = "DVI 2018")
-plot(dvi19, col=mako(100), main = "DVI 2019")
-plot(dvi25, col=mako(100), main = "DVI 2025")
+plot(dvi18, col = mako(100), main = "DVI 2018")
+plot(dvi19, col = mako(100), main = "DVI 2019")
+plot(dvi25, col = mako(100), main = "DVI 2025")
 
 # esportazione delle immagini ottenute, indice DVI
 png("DVI2.png")
 im.multiframe(1,3)
-plot(dvi18, col=mako(100), main = "DVI 2018")
-plot(dvi19, col=mako(100), main = "DVI 2019")
-plot(dvi25, col=mako(100), main = "DVI 2025")
+plot(dvi18, col = mako(100), main = "DVI 2018")
+plot(dvi19, col = mako(100), main = "DVI 2019")
+plot(dvi25, col = mako(100), main = "DVI 2025")
 dev.off()
 
-#NDVI
+# calcolo dell'indice di vegetazione NDVI
 ndvi18<-im.ndvi(T18,4,1)
 ndvi19<-im.ndvi(T19,4,1)
 ndvi25<-im.ndvi(T25,4,1)
+im.multiframe(1,3) # anche in questo caso si preferiscono i risultati sulla stessa riga
+# si utilizza il range 0-1 in quanto si osservano pochi valori al di sotto di 0, che saranno indicati come no-data e colorati di bianco
+# l'utilizzo di un range definito permette di confrontare le colorazioni tra loro evidenziando maggiormente le differenze
+plot(ndvi18, col=inferno(100), range = c(0,1)) 
+plot(ndvi19, col=inferno(100), range = c(0,1)) 
+plot(ndvi25, col=inferno(100), range = c(0,1))
 
+# esportazione delle immagini ottenute, indice NDVI
+png("NDVI.png")
 im.multiframe(1,3)
-plot(ndvi18, col=inferno(100))
-plot(ndvi19, col=inferno(100))
-plot(ndvi25, col=inferno(100))
+plot(dvi18, col = inferno(100), main = "NDVI 2018")
+plot(dvi19, col = inferno(100), main = "NDVI 2019")
+plot(dvi25, col = inferno(100), main = "NDVI 2025")
+dev.off()
 
 #Ridgeline
-ndvi<-c(ndvi18,ndvi19,ndvi25)
+ndvi<-c(ndvi18, ndvi19, ndvi25)
+names(ndvi)<-c(2018, 2019, 2025)
 im.ridgeline(ndvi, scale=1, palette="inferno")
 
 #delta ndvi
