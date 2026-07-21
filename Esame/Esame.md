@@ -214,7 +214,7 @@ Al fine di analizzare in modo più diretto le variazioni degli indici spettrali 
 
 ### Ridgeline plot: indice NDVI
 ```
-im.ridgeline(ndvi, scale=1, palette="viridis")
+im.ridgeline(ndvi, scale=1, palette="viridis") # la funzione im.ridgeline() permette di creare velocemente un ridgeline plot
 ```
 <img width="700" height="350" alt="Ridgeline NDVI" src="https://github.com/user-attachments/assets/001fa7a5-f4ca-4c86-ad46-57d35eb04cac" />
 
@@ -225,7 +225,7 @@ im.ridgeline(ndvi, scale=1, palette="viridis")
 
 ### Ridgeline plot: indice BSI
 ```
-im.ridgeline(bsi, scale=1, palette="viridis")
+im.ridgeline(bsi, scale=1, palette="viridis") # la funzione im.ridgeline() permette di creare velocemente un ridgeline plot
 ```
 <img width="700" height="350" alt="Ridgeline BSI" src="https://github.com/user-attachments/assets/d9a29987-e79c-4d36-b05d-3ae0ff2c4bc3" />
 
