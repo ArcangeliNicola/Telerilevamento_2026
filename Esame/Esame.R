@@ -137,6 +137,7 @@ dev.off()
 #Ridgeline plot NDVI
 im.ridgeline(ndvi, scale=1, palette="viridis")
 
+#esportazione del ridgeline plot NDVI
 png("Ridgeline NDVI.png", width = 700, height = 350)
 im.ridgeline(ndvi, scale=1, palette="viridis")
 dev.off()
@@ -144,18 +145,27 @@ dev.off()
 #Ridgeline plot BSI
 im.ridgeline(bsi, scale=1, palette="viridis")
 
+#esportazione del ridgeline plot BSI
 png("Ridgeline BSI.png", width = 700, height = 350)
 im.ridgeline(bsi, scale=1, palette="viridis")
 dev.off()
 
+#Classificazione dei dati raccolti
+im.multiframe(1,2)
+ndvi18c<-im.classify(ndvi18, num_cluster=2, seed=42)
+ndvi19c<-im.classify(ndvi19, num_cluster=2, seed=42)
 
+im.multiframe(1,2)
+bsi18c<-im.classify(bsi18, num_cluster=2, seed=42)
+bsi19c<-im.classify(bsi19, num_cluster=2, seed=42)
+bsi25c<-im.classify(bsi25, num_cluster=2, seed=42)
+bsic<-c(bsi18c,bsi19c,bsi25c)
+plot(bsic)
 
-
-
-
-
-
-
+levels(bsi19c) <- data.frame(
+  value = c(2, 1),
+  label = c("forest", "human")
+)
 
 
 
