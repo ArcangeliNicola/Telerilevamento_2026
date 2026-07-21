@@ -121,7 +121,7 @@ plot(ndvi, col=inferno(100), range = c(0,1))
 dev.off()
 
 # calcolo dell'indice BSI
-bsi18<-bsi(T18, 1, 3, 4, 5) # utilizzo la funzione bsi() ottenuta dal pacchetto "BSI"
+bsi18<-bsi(T18, 1, 3, 4, 5) # utilizzo la funzione bsi() ottenuta dal pacchetto "BSI" per evitare di scrivere la formula completa
 bsi19<-bsi(T19, 1, 3, 4, 5)
 bsi25<-bsi(T25, 1, 3, 4, 5)
 #visualizzazione dell'indice
@@ -135,7 +135,7 @@ plot(bsi, col = inferno(100), range = c(-1,1))
 dev.off()
 
 #Ridgeline plot NDVI
-im.ridgeline(ndvi, scale=1, palette="viridis")
+im.ridgeline(ndvi, scale=1, palette="viridis") # la funzione im.ridgeline() permette di creare velocemente un ridgeline plot
 
 #esportazione del ridgeline plot NDVI
 png("Ridgeline NDVI.png", width = 700, height = 350)
@@ -150,26 +150,27 @@ png("Ridgeline BSI.png", width = 700, height = 350)
 im.ridgeline(bsi, scale=1, palette="viridis")
 dev.off()
 
-#Classificazione dei dati raccolti
-im.multiframe(1,2)
+# classificazione dell'NDVI in due categorie, viene utilizzato lo stesso seed per ottenere informazioni comparabili
 ndvi18c<-im.classify(ndvi18, num_cluster=2, seed=42)
 ndvi19c<-im.classify(ndvi19, num_cluster=2, seed=42)
+ndvi25c<-im.classify(ndvi25, num_cluster=2, seed=42)
+ndvic<-c(ndvi18c, ndvi19c ,ndvi25c)
+plot(ndvic, col = cividis(100))
 
-im.multiframe(1,2)
-bsi18c<-im.classify(bsi18, num_cluster=2, seed=42)
-bsi19c<-im.classify(bsi19, num_cluster=2, seed=42)
-bsi25c<-im.classify(bsi25, num_cluster=2, seed=42)
+# classificazione del BSI in due categorie, viene utilizzato lo stesso seed per ottenere informazioni comparabili
+bsi18c<-im.classify(bsi18, num_cluster=2, seed=42, do_plot = FALSE) # non è necessario che venga visulizzato graficamente
+bsi19c_raw<-im.classify(bsi19, num_cluster=2, seed=42, do_plot = FALSE) # viene aggiunta la sezione "raw" in quanto l'oggetto sarà sottoposto ad ulteriori modifiche
+bsi25c_raw<-im.classify(bsi25, num_cluster=2, seed=42, do_plot = FALSE) 
+
+bsi19c = subst(bsi19c_raw, from = c(1, 2), to = c(2, 1)) # vengono invertite le celle con valore 1 e 2 in modo da ottenere un risultato più facilmente comparabile
+bsi25c = subst(bsi25c_raw, from = c(1, 2), to = c(2, 1))
+
 bsic<-c(bsi18c,bsi19c,bsi25c)
-plot(bsic)
+names(bsic)<-c("BSI classificato 2018", "BSI classificato 2019","BSI classificato 2025")
 
-levels(bsi19c) <- data.frame(
-  value = c(2, 1),
-  label = c("forest", "human")
-)
-
-
-
-
+legend_bsi<-c("Vegetazione arborea", "Vegetazione erbacea o suolo nudo") # crezione dei nomi per la legenda
+plot(bsic, col = viridis(100), legend = FALSE)
+legend("bottomright", legend = legend_bsi, fill = cividis(2), bg = "white") # impostazione della legenda
 
 
 
