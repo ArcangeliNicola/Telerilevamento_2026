@@ -172,8 +172,9 @@ legend_bsi<-c("Vegetazione arborea", "Vegetazione erbacea o suolo nudo") # crezi
 plot(bsic, col = viridis(100), legend = FALSE)
 legend("bottomright", legend = legend_bsi, fill = cividis(2), bg = "white") # impostazione della legenda
 
-f2018 <- freq(bsi18c) 
-perc2018 <- (f2018$count / ncell(bsi18c)) * 100
+# Elaborazione di una tabella per esplicitare i dati
+f2018 <- freq(bsi18c) # calcolo delle frequenze all'interno della classificazione
+perc2018 <- (f2018$count / ncell(bsi18c)) * 100 # calcolo della percentuale delle frequenze 
 
 f2019 <- freq(bsi19c) 
 perc2019 <- (f2019$count / ncell(bsi19c)) * 100
@@ -183,32 +184,44 @@ f2025 <- freq(bsi25c)
 perc2025 <- (f2025$count / ncell(bsi25c)) * 100
 perc2025
 
-# Table
-tab_perc <- data.frame(
+tab_perc <- data.frame(                                   # creazione della tabella
   Classe = c("Foresta", "Veg. erbacea o suolo scoperto"),
   BSI_2018 = c(68, 32),
   BSI_2019 = c(48, 52),
   BSI_2025 = c(46, 54))
 
-png("Tab_perc.png", width = 700, height = 350)
-plot(tab_perc)
-dev.off()
+tab_perc # visualizzazione della tabella in R
 
 
+# creazione di un grafico a barre per visualizzare le frequenze
 
+T2018 <- ggplot(tab_perc, aes(x=Classe, y=perc2018, color=Classe)) + # structure
+  geom_bar(stat="identity", fill="white") + # bar plot 
+  ylim(c(0,100)) + # limits
+  theme(legend.position="none")  # removing legend
+library(patchwork)
 
-ggplot(tab_perc, aes(x=class, y=perc2018, color=class)) + # structure
+T2018 <- ggplot(tab_perc, aes(x = Classe, y = perc2018, fill = Classe)) +
+  geom_bar(stat = "identity") +
+  ylim(c(0, 100)) +
+  scale_fill_manual(values = cividis(2)) + 
+  labs(title = "Copertura pre-Vaia", x = "Classe", y = "Percentuale (%)") +
+  theme(legend.position = "none")
 
+T2019 <- ggplot(tab_perc, aes(x = Classe, y = perc2019, fill = Classe)) +
+  geom_bar(stat = "identity") +
+  ylim(c(0, 100)) +
+  scale_fill_manual(values = cividis(2)) + 
+  labs(title = "Copertura post-Vaia", x = "Classe", y = "Percentuale (%)") +
+  theme(legend.position = "none")
 
+T2025 <- ggplot(tab_perc, aes(x = Classe, y = perc2025, fill = Classe)) +
+  geom_bar(stat = "identity") +
+  ylim(c(0, 100)) +
+  scale_fill_manual(values = cividis(2)) + 
+  labs(title = "Copertura recente (2025)", x = "Classe", y = "Percentuale (%)")
 
-
-
-
-
-
-
-
-
+T2018 + T2019 + T2025
 
 
 
