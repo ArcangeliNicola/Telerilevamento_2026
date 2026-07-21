@@ -172,10 +172,32 @@ legend_bsi<-c("Vegetazione arborea", "Vegetazione erbacea o suolo nudo") # crezi
 plot(bsic, col = viridis(100), legend = FALSE)
 legend("bottomright", legend = legend_bsi, fill = cividis(2), bg = "white") # impostazione della legenda
 
+f2018 <- freq(bsi18c) 
+perc2018 <- (f2018$count / ncell(bsi18c)) * 100
+
+f2019 <- freq(bsi19c) 
+perc2019 <- (f2019$count / ncell(bsi19c)) * 100
+perc2019
+
+f2025 <- freq(bsi25c) 
+perc2025 <- (f2025$count / ncell(bsi25c)) * 100
+perc2025
+
+# Table
+tab_perc <- data.frame(
+  Classe = c("Foresta", "Veg. erbacea o suolo scoperto"),
+  BSI_2018 = c(68, 32),
+  BSI_2019 = c(48, 52),
+  BSI_2025 = c(46, 54))
+
+png("Tab_perc.png", width = 700, height = 350)
+plot(tab_perc)
+dev.off()
 
 
 
 
+ggplot(tab_perc, aes(x=class, y=perc2018, color=class)) + # structure
 
 
 
