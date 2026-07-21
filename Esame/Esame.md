@@ -41,7 +41,7 @@ Le immagini provengono dal satellite Sentinel-2 operato dall'ESA e sono state sc
 ottenute sono stati calcolati i seguenti indici spettrali:
 - DVI (Difference Vegetation Index) fornisce un'indicazione non normalizzata, del vigore vegetativo.
 - NDVI (Normalized Difference Vegetation Index) versione normalizzata del DVI, è l'indice standard per la stima della salute e densità della vegetazione.
-- BSI  (Bare Soil Index) specifico per il suolo nudo, rileva i cambiamenti nell'uso del suolo
+- BSI  (Bare Soil Index) specifico per il suolo nudo, rileva i cambiamenti nella copertura del suolo
 
 Le analisi sono state condotte in ambiente R tramite i seguenti pacchetti:
 
