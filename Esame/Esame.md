@@ -234,6 +234,34 @@ im.ridgeline(bsi, scale=1, palette="viridis")
 > - La situazione cambia drasticamente nel periodo subito dopo l'evento (2019) in cui la distribuzione passa ad uno stato quasi trimodale nel quale il picco tra -0.5 e -0.25 si riduce drasticamente, il picco tra -0.25 e 0 si alza mentre si può osservare un notevole aumento dei valori vicini a 0, questo riflette perfettamente le dinamiche della tempesta: la foresta è stata abbattuta dal vento e il suolo rimasto esposto viene colonizzato da piante erbacee o rimane nudo.
 > - All'interno del grafico che rappresenta la situazione più recente (2025) si osserva un ritorno ad una distribuzione bimodale in cui tuttavia l'altezza dei picchi è invertita rispetto alla condizione pre-evento, in particolare il picco legato alla vegetazione forestale sembra rimanere stabile rispetto al periodo 2019 mentre le specie erbacee hanno avuto il tempo di colonizzare il suolo nudo e così di espandersi.
 
+## 8. Classificazione
+
+Al fine di ottenere una stima quantitativa dell'impatto della tempesta operiamo una classificazione.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
