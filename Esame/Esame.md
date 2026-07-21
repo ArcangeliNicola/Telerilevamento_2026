@@ -4,7 +4,7 @@
 
 #  🌬️Caso studio: tempesta Vaia🌳 
 
-## Nicola Arcangeli - telerilevamento geo-ecologico in R 🛰️
+## Nicola Arcangeli - telerilevamento geo-ecologico in `R` 🛰️
 </div>
 
 ## 1. Introduzione
