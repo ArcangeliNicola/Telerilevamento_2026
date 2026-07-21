@@ -3,7 +3,8 @@ library(terra)      # Pacchetto per maneggiare facilmente immagini satellitari
 library(viridis)    # Pacchetto che aggiunge scale colori per utenti affetti da daltonismo
 library(ggplot2)    # Per la creazione di grafici
 library(imageRy)    # Pacchetto per svolgere più agilmente determinati compiti
-library(BSI)        # Pacchetto per calcolare agilmente il Bare Soil Index
+library(patchwork)  # Pacchetto per aggregare i grafici tramite il segno "+"
+library(bsi)        # Pacchetto per calcolare agilmente il Bare Soil Index
 
 # imposto la cartella di riferimento
 setwd("C:\\Scienze e gestione della natura\\Primo anno\\Telerilevamento\\Esame Vaia")
@@ -150,13 +151,6 @@ png("Ridgeline BSI.png", width = 700, height = 350)
 im.ridgeline(bsi, scale=1, palette="viridis")
 dev.off()
 
-# classificazione dell'NDVI in due categorie, viene utilizzato lo stesso seed per ottenere informazioni comparabili
-ndvi18c<-im.classify(ndvi18, num_cluster=2, seed=42)
-ndvi19c<-im.classify(ndvi19, num_cluster=2, seed=42)
-ndvi25c<-im.classify(ndvi25, num_cluster=2, seed=42)
-ndvic<-c(ndvi18c, ndvi19c ,ndvi25c)
-plot(ndvic, col = cividis(100))
-
 # classificazione del BSI in due categorie, viene utilizzato lo stesso seed per ottenere informazioni comparabili
 bsi18c<-im.classify(bsi18, num_cluster=2, seed=42, do_plot = FALSE) # non è necessario che venga visulizzato graficamente
 bsi19c_raw<-im.classify(bsi19, num_cluster=2, seed=42, do_plot = FALSE) # viene aggiunta la sezione "raw" in quanto l'oggetto sarà sottoposto ad ulteriori modifiche
@@ -168,12 +162,12 @@ bsi25c = subst(bsi25c_raw, from = c(1, 2), to = c(2, 1))
 bsic<-c(bsi18c,bsi19c,bsi25c)
 names(bsic)<-c("BSI classificato 2018", "BSI classificato 2019","BSI classificato 2025")
 
-legend_bsi<-c("Vegetazione arborea", "Vegetazione erbacea o suolo nudo") # crezione dei nomi per la legenda
+legend_bsi<-c("Vegetazione arborea", "Vegetazione erbacea e suolo nudo") # crezione dei nomi per la legenda
 plot(bsic, col = viridis(100), legend = FALSE)
-legend("bottomright", legend = legend_bsi, fill = cividis(2), bg = "white") # impostazione della legenda
+legend("bottomright", legend = legend_bsi, fill = cividis(2), bg = "white") # inserimento della legenda
 
 # Elaborazione di una tabella per esplicitare i dati
-f2018 <- freq(bsi18c) # calcolo delle frequenze all'interno della classificazione
+f2018 <- freq(bsi18c)                           # calcolo delle frequenze all'interno della classificazione
 perc2018 <- (f2018$count / ncell(bsi18c)) * 100 # calcolo della percentuale delle frequenze 
 
 f2019 <- freq(bsi19c) 
@@ -184,45 +178,50 @@ f2025 <- freq(bsi25c)
 perc2025 <- (f2025$count / ncell(bsi25c)) * 100
 perc2025
 
-tab_perc <- data.frame(                                   # creazione della tabella
-  Classe = c("Foresta", "Veg. erbacea o suolo scoperto"),
-  BSI_2018 = c(68, 32),
-  BSI_2019 = c(48, 52),
-  BSI_2025 = c(46, 54))
+tab_perc <- data.frame(                                  
+  Classe = c("Foresta", "Veg. erbacea e suolo scoperto"), # creazione della tabella #
+  BSI_2018 = round(perc2018, 1),                          # si arrotondano le percentuali alla prima cifra significativa #
+  BSI_2019 = round(perc2019, 1),
+  BSI_2025 = round(perc2025, 1))
 
 tab_perc # visualizzazione della tabella in R
 
 
 # creazione di un grafico a barre per visualizzare le frequenze
 
-T2018 <- ggplot(tab_perc, aes(x=Classe, y=perc2018, color=Classe)) + # structure
-  geom_bar(stat="identity", fill="white") + # bar plot 
-  ylim(c(0,100)) + # limits
-  theme(legend.position="none")  # removing legend
-library(patchwork)
-
-T2018 <- ggplot(tab_perc, aes(x = Classe, y = perc2018, fill = Classe)) +
-  geom_bar(stat = "identity") +
-  ylim(c(0, 100)) +
-  scale_fill_manual(values = cividis(2)) + 
-  labs(title = "Copertura pre-Vaia", x = "Classe", y = "Percentuale (%)") +
-  theme(legend.position = "none")
+T2018 <- ggplot(tab_perc, aes(x = Classe, y = perc2018, fill = Classe)) + # si indicano i dati su cui si deve basare il grafico
+  geom_col() +                                                            # indica la geometria del grafico, in questo caso a colonne
+  geom_text(aes(label = paste0(round(perc2018, 1), "%")), vjust = -0.5) + # inserisce il valore in cima alle colonne del grafico
+  ylim(c(0, 100)) +                                                       # imposta i limiti dell'asse y in modo che le altezze siano confrontabili
+  scale_fill_manual(values = cividis(2)) +                                # indica con quali colori riempire il grafico
+  labs(title = "Copertura pre-Vaia (2018)", y = "Percentuale (%)") +      # imposta quali ciò che indicano gli assi cartesiani
+  theme(legend.position = "none")                                         # rimuove la legenda
 
 T2019 <- ggplot(tab_perc, aes(x = Classe, y = perc2019, fill = Classe)) +
-  geom_bar(stat = "identity") +
+  geom_col() +
+  geom_text(aes(label = paste0(round(perc2019, 1), "%")), vjust = -0.5) +
   ylim(c(0, 100)) +
   scale_fill_manual(values = cividis(2)) + 
-  labs(title = "Copertura post-Vaia", x = "Classe", y = "Percentuale (%)") +
+  labs(title = "Copertura post-Vaia (2019)", y = NULL) +                  # non è necessario indicare il nome dell'asse y in quanto i grafici saranno aggregati
   theme(legend.position = "none")
 
 T2025 <- ggplot(tab_perc, aes(x = Classe, y = perc2025, fill = Classe)) +
-  geom_bar(stat = "identity") +
+  geom_col() +
+  geom_text(aes(label = paste0(round(perc2025, 1), "%")), vjust = -0.5) +  
   ylim(c(0, 100)) +
   scale_fill_manual(values = cividis(2)) + 
-  labs(title = "Copertura recente (2025)", x = "Classe", y = "Percentuale (%)")
+  labs(title = "Copertura recente (2025)", y = NULL) +
+  theme(legend.position = "none")
 
-T2018 + T2019 + T2025
-
+Grafico_completo <- (T2018 + T2019 + T2025) + # funzione del pacchetto patchworks per aggregare i grafici tra loro
+                     plot_annotation(title = "Variazioni della copertura forestale in seguito all'evento Vaia", # impostazione del titolo #
+                     theme = theme(plot.title = element_text(face = "bold", size = 17, hjust = 0.5))) # impostazione delle caratteristiche del titolo
+Grafico_completo # viene richiamato il grafico per la visualizzazione
+      
+# esportazione del grafico elaborato     
+png("Grafico a colonne.png", width = 900, height = 350)
+Grafico_completo
+dev.off()
 
 
 
