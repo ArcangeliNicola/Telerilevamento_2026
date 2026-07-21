@@ -151,7 +151,7 @@ png("Ridgeline BSI.png", width = 700, height = 350)
 im.ridgeline(bsi, scale=1, palette="viridis")
 dev.off()
 
-# classificazione del BSI in due categorie, viene utilizzato lo stesso seed per ottenere informazioni comparabili
+# classificazione non supervisionata del BSI in due categorie, viene utilizzato lo stesso seed per ottenere informazioni comparabili
 bsi18c<-im.classify(bsi18, num_cluster=2, seed=42, do_plot = FALSE) # non è necessario che venga visulizzato graficamente
 bsi19c_raw<-im.classify(bsi19, num_cluster=2, seed=42, do_plot = FALSE) # viene aggiunta la sezione "raw" in quanto l'oggetto sarà sottoposto ad ulteriori modifiche
 bsi25c_raw<-im.classify(bsi25, num_cluster=2, seed=42, do_plot = FALSE) 
@@ -165,6 +165,13 @@ names(bsic)<-c("BSI classificato 2018", "BSI classificato 2019","BSI classificat
 legend_bsi<-c("Vegetazione arborea", "Vegetazione erbacea e suolo nudo") # crezione dei nomi per la legenda
 plot(bsic, col = viridis(100), legend = FALSE)
 legend("bottomright", legend = legend_bsi, fill = cividis(2), bg = "white") # inserimento della legenda
+
+#esportazione della zona di interesse classificata plot BSI
+png("zona_classificata.png")
+legend_bsi<-c("Vegetazione arborea", "Vegetazione erbacea e suolo nudo") # crezione dei nomi per la legenda
+plot(bsic, col = viridis(100), legend = FALSE)
+legend("bottomright", legend = legend_bsi, fill = cividis(2), bg = "white") # inserimento della legenda
+dev.off()
 
 # Elaborazione di una tabella per esplicitare i dati
 f2018 <- freq(bsi18c)                           # calcolo delle frequenze all'interno della classificazione
