@@ -206,7 +206,7 @@ plot(bsi, col = inferno(100), range = c(-1,1))
 ```
 <img width="600" height="600" alt="BSI" src="https://github.com/user-attachments/assets/3a51d85d-3a2d-408f-8ae2-6cc83a4cd844" />
 
-> In queste immagini un colore più scuro rappresenta un suolo in cui è presente vegetazione legnosa mentre il suolo chiaro può essere ricondotto ad una vegetazione erbacea, è evidente come la copertura del suolo sia notevolmente cambiata in seguito alla tempesta ed inoltre questo indice accentua in maniera ottima come la vegetazione non sia ancora tornata ad uno stato anche solo simile a quello precedente
+> In queste immagini un colore più scuro rappresenta un suolo in cui è presente vegetazione legnosa mentre il suolo chiaro può essere ricondotto ad una vegetazione erbacea o assente, è evidente come la copertura del suolo sia notevolmente cambiata in seguito alla tempesta ed inoltre questo indice accentua in maniera ottima come la vegetazione non sia ancora tornata ad uno stato anche solo simile a quello precedente
 
 ## 7. Ridgeline plot
 
