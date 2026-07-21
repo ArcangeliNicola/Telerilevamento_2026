@@ -50,6 +50,7 @@ library(terra)      # Pacchetto per maneggiare facilmente immagini satellitari
 library(viridis)    # Pacchetto che aggiunge scale colori per utenti affetti da daltonismo
 library(ggplot2)    # Per la creazione di grafici
 library(imageRy)    # Pacchetto per svolgere più agilmente determinati compiti
+library(BSI)        # Pacchetto per calcolare agilmente il Bare Soil Index
 ```
 
 ## 3. Preparazione delle immagini
@@ -149,7 +150,7 @@ plotRGB(T25, 4, 2, 3, stretch = "lin", main = "2025 falsi colori")
 
 > Tramite queste immagini si può osservare l'entità dei danni, in particolare la notevole perdita di copertura vegetazionale dell'altopiano della Marcesina tra prima e dopo la tempesta (immagini del 2018 e 2019)
 
-## 6. Indici spettrali di vegetazione: DVI e NDVI
+## 6. Indici spettrali analizzati: DVI, NDVI e BSI
 
 ### DVI (Different Vegetation Index)
 $` DVI = NIR - RED `$
@@ -157,16 +158,14 @@ $` DVI = NIR - RED `$
 Il DVI è un indice che si basa sull'alta riflettanza delle piante allo spettro del NIR, ed è spesso utilizzato per analizzare la copertura vegetale e lo stato di salute della vegetazione, non essendo normalizzato le comparazioni tra immagini diverse devono essere affrontate cautamente. Per calcolarlo è stata utilizzata la funzione `im.dvi()`.
 
 ```
-dvi18<-im.dvi(T18,4,1) # la funzione "im.dvi()" elabora automaticamente le bande NIR e rosso
+dvi18<-im.dvi(T18,4,1) # la funzione "im.dvi()" elabora automaticamente le bande
 dvi19<-im.dvi(T19,4,1)
 dvi25<-im.dvi(T25,4,1)
-im.multiframe(1,3) # in questo caso si preferiscono i risultati sulla stessa riga
-plot(dvi18, col = mako(100), main = "DVI 2018")
-plot(dvi19, col = mako(100), main = "DVI 2019")
-plot(dvi25, col = mako(100), main = "DVI 2025")
-#dev.off()
+dvi<-c(dvi18, dvi19, dvi25)
+names(dvi)<-c("DVI 2018","DVI 2019","DVI 2025")
+plot(dvi, col = mako(100))
 ```
-<img width="720" height="300" alt="DVI2 1" src="https://github.com/user-attachments/assets/7d52e4c8-97ba-46d9-83f9-941125b71f38" />
+<img width="600" height="600" alt="DVI" src="https://github.com/user-attachments/assets/dd660126-c8b0-43e8-be32-eb8de3437455" />
 
 >L'indice non permette di estrarre molte informazioni, per questo si utilizza un indice normalizzato come NDVI
 
@@ -179,15 +178,13 @@ NDVI è la versione normalizzata del DVI che può assumere valori compresi tra -
 ndvi18<-im.ndvi(T18,4,1)
 ndvi19<-im.ndvi(T19,4,1)
 ndvi25<-im.ndvi(T25,4,1)
-im.multiframe(1,3) # anche in questo caso si preferiscono i risultati sulla stessa riga
-# si utilizza un intervallo compreso tra 0-1 in quanto si osservano pochi valori al di sotto di 0,
-# che saranno indicati come no-data e colorati di bianco
-# l'utilizzo di un intervallo definito permette di confrontare le colorazioni tra loro evidenziando maggiormente le differenze
-plot(ndvi18, col=inferno(100), range = c(0,1)) 
-plot(ndvi19, col=inferno(100), range = c(0,1)) 
-plot(ndvi25, col=inferno(100), range = c(0,1))
+ndvi<-c(ndvi18, ndvi19, ndvi25)
+names(ndvi)<-c("NDVI 2018","NDVI 2019","NDVI 2025")
+# si utilizza il range 0-1 in quanto si osservano pochi valori al di sotto di 0, che saranno indicati come no-data e colorati di bianco
+# l'utilizzo di un range definito permette di confrontare le colorazioni tra loro evidenziando maggiormente le differenze
+plot(ndvi, col=inferno(100), range = c(0,1)) 
 ```
-<img width="720" height="300" alt="NDVI2" src="https://github.com/user-attachments/assets/ef7fdd0d-bbc9-415d-a66b-e7025e4f3e1f" />
+<img width="600" height="600" alt="NDVI" src="https://github.com/user-attachments/assets/a62b8040-d314-44ce-96f6-846a76b6fe63" />
 
 > Tramite l'indice si possono identificare molto bene le aree che sono state danneggiate dalla tempesta tramite l'immagine dell'anno 2019, si può osservare anche come la vegetazione si sia ripresa in tempi recenti tuttavia sono ancora evidenti le differenze rispetto allo stato precedente all'evento
 
@@ -209,18 +206,33 @@ plot(bsi, col = inferno(100), range = c(-1,1))
 ```
 <img width="600" height="600" alt="BSI" src="https://github.com/user-attachments/assets/3a51d85d-3a2d-408f-8ae2-6cc83a4cd844" />
 
+> In queste immagini un colore più scuro rappresenta un suolo in cui è presente vegetazione legnosa mentre il suolo chiaro può essere ricondotto ad una vegetazione erbacea, è evidente come la copertura del suolo sia notevolmente cambiata in seguito alla tempesta ed inoltre questo indice accentua in maniera ottima come la vegetazione non sia ancora tornata ad uno stato anche solo simile a quello precedente
 
+## 7. Ridgeline plot
 
+Al fine di analizzare in modo più diretto le variazioni degli indici spettrali calcolati in precedenza si preparano dei Ridgeline plot. Nonostante vengano perse le informazioni riguardanti la posizione all'interno dell'area di studio questo tipo di analisi permette di ottenere risultati facilmente comparabili ed interpretabili. Per sviluppare i Ridgeline plot è stata utilizzata la funzione `im.ridgeline()` proveniente dal pacchetto `imageRy`.
 
+### Ridgeline plot: indice NDVI
+```
+im.ridgeline(ndvi, scale=1, palette="viridis")
+```
+<img width="700" height="350" alt="Ridgeline NDVI" src="https://github.com/user-attachments/assets/001fa7a5-f4ca-4c86-ad46-57d35eb04cac" />
 
+> La distribuzione all'interno del grafico è chiaramente unimodale, comunque possono essere effettuate delle considerazioni:
+>
+> - Si può osservare come nel 2019 la coda sinistra della distribuzione tenda maggiormente verso i valori negativi dell'indice che rappresentano una vegetazione meno rigogliosa o assente
+> - Rispetto alla distribuzione del grafico del 2018 quella del 2025 risulta più rilassata, il picco è inferiore e le code sono più spesse
 
+### Ridgeline plot: indice BSI
+```
+im.ridgeline(bsi, scale=1, palette="viridis")
+```
+<img width="700" height="350" alt="Ridgeline BSI" src="https://github.com/user-attachments/assets/d9a29987-e79c-4d36-b05d-3ae0ff2c4bc3" />
 
-
-
-
-
-
-
+> i risultati di questo Ridgeline plot sono particolarmente interessanti.
+> - La disposizione possiede uno stato bimodale nel periodo precedente la tempesta (2018), in cui il picco più alto si trova all'interno dei valori tra -0.5 e -0.25 che rappresentano la copertura forestale mentre il secondo picco tra -0.25 e 0 rappresenta la copertura erbacea.
+> - La situazione cambia drasticamente nel periodo subito dopo l'evento (2019) in cui la distribuzione passa ad uno stato quasi trimodale nel quale il picco tra -0.5 e -0.25 si riduce drasticamente, il picco tra -0.25 e 0 si alza mentre si può osservare un notevole aumento dei valori vicini a 0, questo riflette perfettamente le dinamiche della tempesta: la foresta è stata abbattuta dal vento e il suolo rimasto esposto viene colonizzato da piante erbacee o rimane nudo.
+> - All'interno del grafico che rappresenta la situazione più recente (2025) si osserva un ritorno ad una distribuzione bimodale in cui tuttavia l'altezza dei picchi è invertita rispetto alla condizione pre-evento, in particolare il picco legato alla vegetazione forestale sembra rimanere stabile rispetto al periodo 2019 mentre le specie erbacee hanno avuto il tempo di colonizzare il suolo nudo e così di espandersi.
 
 
 
