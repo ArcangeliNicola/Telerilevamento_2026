@@ -334,7 +334,7 @@ Il passaggio della tempesta Vaia ha causato gravi danni alla vegetazione arborea
 
 - All'interno delle bande utilizzate erano presenti alcune nuvole che hanno leggermente modificato i risultati ottenuti
 - La classificazione non supervisionata possiede nei limiti specialmente nel differenziare gli stadi intermedi tra la vegetazione più bassa e quella più alta
-- L'impatto della tempesta non è stato sicuramente l'unico dal 2018 al 2025, in particolare si segna il taglio di numerosi alberi in seguito ad un'infestazione da bostrico
+- L'impatto della tempesta non è stato sicuramente l'unico dal 2018 al 2025, in particolare si segnala il taglio di numerosi alberi in seguito ad un'infestazione da bostrico
 
 ## 10. Bibliografia e sitografia
 
@@ -343,7 +343,11 @@ Sito del ministero dell'agricoltura, sovranità ambientale e delle foreste: http
 Motta R, Ascoli D, Corona P, Marchetti M, Vacchiano G (2018). Selvicoltura e schianti da vento. 
 Il caso della “tempesta Vaia”. Forest@ 15: 94-98. – doi: 10.3832/efor2990015 [online 2018-11-13]
 
+### Citazione finale
 
+<strong>«Ma ci saranno ancora degli innamorati che in una notte d’inverno si faranno trasportare su una slitta tirata da un generoso cavallo per la piana di Marcesina imbevuta di luce lunare? Se non ci fossero come sarebbe triste il mondo.»
+
+Mario Rigoni Stern</strong>
 
 
 
