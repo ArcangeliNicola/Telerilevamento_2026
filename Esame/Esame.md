@@ -167,7 +167,6 @@ names(dvi)<-c("DVI 2018","DVI 2019","DVI 2025")
 plot(dvi, col = mako(100))
 ```
 <img width="600" height="600" alt="DVI" src="https://github.com/user-attachments/assets/dd660126-c8b0-43e8-be32-eb8de3437455" />
-
 >L'indice non permette di estrarre molte informazioni, per questo si utilizza un indice normalizzato come NDVI
 
 ### NDVI (Normalized Different Vegetation Index)
@@ -340,9 +339,7 @@ Il passaggio della tempesta Vaia ha causato gravi danni alla vegetazione arborea
 
 ## 10. Bibliografia e sitografia
 
-Motta R, Ascoli D, Corona P, Marchetti M, Vacchiano G (2018). Selvicoltura e schianti da vento. 
-
-Il caso della “tempesta Vaia”. Forest@ 15: 94-98. – doi: 10.3832/efor2990015 [online 2018-11-13]
+Motta R, Ascoli D, Corona P, Marchetti M, Vacchiano G (2018). Selvicoltura e schianti da vento. Il caso della “tempesta Vaia”. Forest@ 15: 94-98. – doi: 10.3832/efor2990015 \[online 2018-11-13\]
 
 Rikimaru, A., P. Sarathi Roy, and S. Miyatake. "Tropical forest cover density mapping." Tropical ecology 43.1 (2002): 39-47.
 Sito del ministero dell'agricoltura, sovranità ambientale e delle foreste: https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18158
