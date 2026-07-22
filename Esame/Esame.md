@@ -50,7 +50,8 @@ library(terra)      # Pacchetto per maneggiare facilmente immagini satellitari
 library(viridis)    # Pacchetto che aggiunge scale colori per utenti affetti da daltonismo
 library(ggplot2)    # Per la creazione di grafici
 library(imageRy)    # Pacchetto per svolgere più agilmente determinati compiti
-library(BSI)        # Pacchetto per calcolare agilmente il Bare Soil Index
+library(patchwork)  # Pacchetto per aggregare i grafici tramite il segno "+"
+library(bsi)        # Pacchetto per calcolare agilmente il Bare Soil Index
 ```
 
 ## 3. Preparazione delle immagini
@@ -196,7 +197,7 @@ L'indice BSI è utilizzato per evidenziare il suolo nudo o eroso. Spesso viene u
 
 ```
 # calcolo dell'indice BSI
-bsi18<-bsi(T18, 1, 3, 4, 5) # utilizzo la funzione bsi() ottenuta dal pacchetto "BSI"
+bsi18<-bsi(T18, 1, 3, 4, 5) # utilizzo la funzione bsi() ottenuta dal pacchetto "bsi"
 bsi19<-bsi(T19, 1, 3, 4, 5)
 bsi25<-bsi(T25, 1, 3, 4, 5)
 #visualizzazione dell'indice
@@ -236,31 +237,111 @@ im.ridgeline(bsi, scale=1, palette="viridis") # la funzione im.ridgeline() perme
 
 ## 8. Classificazione
 
-Al fine di ottenere una stima quantitativa dell'impatto della tempesta operiamo una classificazione.
+Al fine di ottenere una stima quantitativa dei danni alla copertura forestale viene applicata una classificazione non supervisionata tramite la funzione `im.classify()` ottenuta dal pacchetto `imageRy`. La classificazione sarà basata sull'indice BSI che è stato osservato dalle analisi precedenti distinguere in modo sufficientemente buono la copertura forestale dalla vegetazione erbacea e dal suolo nudo. La classificazione identificherà due raggruppamenti: il primo costituito dal suolo con copertura forestale e il secondo dall'unione della vegetazione erbacea e del suolo scoperto, viene impiegata una classificazione non supervisionata in quanto i Ridgeline plot hanno evidenziato come la separazione tra i raggruppamenti sia sufficientemente netta per non causare imprecisioni troppo gravi.
 
+```
+bsi18c<-im.classify(bsi18, num_cluster = 2, seed = 42, do_plot = FALSE) # vengono impostati i due cluster, viene utilizzato il "seed" 42 tuttavia non è importante il numero scelto ma che esso sia uguale in tutte le analisi, non è necessario che il contenuto venga visulizzato graficamente
+bsi19c_raw<-im.classify(bsi19, num_cluster = 2, seed = 42, do_plot = FALSE)  # viene aggiunta la sezione "raw" in quanto l'oggetto sarà sottoposto ad ulteriori modifiche
+bsi25c_raw<-im.classify(bsi25, num_cluster = 2, seed = 42, do_plot = FALSE)  
 
+bsi19c = subst(bsi19c_raw, from = c(1, 2), to = c(2, 1)) # vengono invertite le celle con valore 1 e 2 in modo da ottenere un risultato più facilmente comparabile 
+bsi25c = subst(bsi25c_raw, from = c(1, 2), to = c(2, 1)) # in quanto a causa dell'inversione delle abbondanze all'interno dei raggruppamenti i colori risulterebbero invertiti
 
+bsic<-c(bsi18c,bsi19c,bsi25c) # creazione dello stack
+names(bsic)<-c("BSI classificato 2018", "BSI classificato 2019","BSI classificato 2025")
 
+legend_bsic<-c("Vegetazione arborea", "Vegetazione erbacea e suolo nudo")    # crezione dei nomi per la legenda
+plot(bsic, col = viridis(2), legend = FALSE)
+legend("bottomright", legend = legend_bsic, fill = viridis(2), bg = "white") # inserimento della legenda all'interno dell'interfaccia grafica
+```
+<div align="center">
 
+<img width="600" height="600" alt="zona_classificata" src="https://github.com/user-attachments/assets/a477dff2-976a-46ea-8991-d4b9e1e6d485" />
 
+</div>
 
+> La classificazione indica in colore scuro le aree in cui dovrebbe essere presente una copertura di tipo forestale e in chiaro le aree in cui è presente una vegetazione erbacea o suolo nudo, comparando queste immagini con le immagini reali si può osservare come essere sembrino rappresentare abbastanza fedelmente i due diversi tipi di copertura. La classificazione evidenzia il danno provocato dalla tempesta e come essa abbia modificato profondamente il paesaggio della zona
 
+I dati ottenuti dalla classificazione possono essere inseriti all'interno di una tabella per ottenere effettivamente una stima quantitativa.
 
+```
+f2018 <- freq(bsi18c)                           # calcolo delle frequenze all'interno della classificazione
+perc2018 <- (f2018$count / ncell(bsi18c)) * 100 # calcolo della percentuale delle frequenze 
 
+f2019 <- freq(bsi19c) 
+perc2019 <- (f2019$count / ncell(bsi19c)) * 100
+perc2019
 
+f2025 <- freq(bsi25c) 
+perc2025 <- (f2025$count / ncell(bsi25c)) * 100
+perc2025
 
+tab_perc <- data.frame(                                  
+  Classe = c("Foresta", "Veg. erbacea e suolo scoperto"), # creazione della tabella #
+  BSI_2018 = round(perc2018, 1),                          # si arrotondano le percentuali alla prima cifra significativa #
+  BSI_2019 = round(perc2019, 1),
+  BSI_2025 = round(perc2025, 1))
 
+tab_perc # visualizzazione della tabella in R
+```
 
+| Classi | pre-tempesta (2018) | post-tempesta (2019) | condizione recente (2025) |
+|---|---|---|---|
+| Copertura forestale | 68.4% | 48.2% | 46.4% |
+| Copertura erbacea e suolo scoperto | 31.6% | 51.8% | 53.6% |
 
+> La tabella mostra una riduzione del 20% circa della copertura forestale in seguito alla tempesta, la situzione recente non mostra miglioramenti ma anzi è presente un aumento nella copertura da parte della vegetazione erbacea
 
+Al fine di visualizzare in modo più esuastivo i dati contenuti in tabella viene preparato un grafico a colonne.
+```
+T2018 <- ggplot(tab_perc, aes(x = Classe, y = perc2018, fill = Classe)) + # si indicano i dati su cui si deve basare il grafico
+  geom_col() +                                                            # indica la geometria del grafico, in questo caso a colonne
+  geom_text(aes(label = paste0(round(perc2018, 1), "%")), vjust = -0.5) + # inserisce il valore in cima alle colonne del grafico
+  ylim(c(0, 100)) +                                                       # imposta i limiti dell'asse y in modo che le altezze siano confrontabili
+  scale_fill_manual(values = viridis(2)) +                                # indica con quali colori riempire il grafico
+  labs(title = "Copertura pre-Vaia (2018)", y = "Percentuale (%)") +      # imposta quali ciò che indicano gli assi cartesiani
+  theme(legend.position = "none")                                         # rimuove la legenda
 
+T2019 <- ggplot(tab_perc, aes(x = Classe, y = perc2019, fill = Classe)) +
+  geom_col() +
+  geom_text(aes(label = paste0(round(perc2019, 1), "%")), vjust = -0.5) +
+  ylim(c(0, 100)) +
+  scale_fill_manual(values = viridis(2)) + 
+  labs(title = "Copertura post-Vaia (2019)", y = NULL) +                  # non è necessario indicare il nome dell'asse y in quanto i grafici saranno aggregati
+  theme(legend.position = "none")
 
+T2025 <- ggplot(tab_perc, aes(x = Classe, y = perc2025, fill = Classe)) +
+  geom_col() +
+  geom_text(aes(label = paste0(round(perc2025, 1), "%")), vjust = -0.5) +  
+  ylim(c(0, 100)) +
+  scale_fill_manual(values = viridis(2)) + 
+  labs(title = "Copertura recente (2025)", y = NULL) +
+  theme(legend.position = "none")
 
+Grafico_completo <- (T2018 + T2019 + T2025) +                                                                   # funzione del pacchetto patchworks per aggregare i grafici tra loro
+                     plot_annotation(title = "Variazioni della copertura forestale in seguito all'evento Vaia", # impostazione del titolo principale #
+                     theme = theme(plot.title = element_text(face = "bold", size = 17, hjust = 0.5)))           # impostazione delle caratteristiche del titolo
 
+Grafico_completo       # viene richiamato il grafico per la visualizzazione
+```
+<img width="900" height="350" alt="Grafico a colonne" src="https://github.com/user-attachments/assets/089af0de-e89a-4e9d-a5e4-dd073fb0c567" />
 
+## 9. Conclusione
 
+Il passaggio della tempesta Vaia ha causato gravi danni alla vegetazione arborea presente nell'area di studio. Tramite l'indice spettrale BSI si è stimata una riduzione della copertura forestale dal 68.4% al 48.2%, che essendo l'area di interesse estesa per circa 100 km<sup>2</sup> equivale ad una perdita di superficie boscata di 20 km<sup>2</sup>. Lo studio dell'indice NDVI ha permesso di individuare le aree maggiormente colpite dall'evento e di osservare il passaggio da un suolo non vegetato nel 2019 ad un suolo con vegetazione di tipo erbaceo nel 2025, dato che nell'analisi effettuata utilizzando il BSI non era osservabile. Gli schianti da vento, nonostante causino danni economici, sono fenomeni naturali che rappresentano da un punto di vista ecologico una nuova opportunità per l'ambiente, anche l'uomo può sfruttare queste occasioni per sviluppare una copertura forestale più resistente, specialmente nei confronti di disturbi di entità inferiore che aumenteranno di frequenza a causa dei cambiamenti climatici (Motta et al., 2018). In conclusione si può affermare come questo studio abbia tentato di elaborare una stima dei danni che tuttavia dovrà essere sicuramente validata da dati di campo per poter essere applicata in altri contesti.
 
+### Limiti dello studio
 
+- All'interno delle bande utilizzate erano presenti alcune nuvole che hanno leggermente modificato i risultati ottenuti
+- La classificazione non supervisionata possiede nei limiti specialmente nel differenziare gli stadi intermedi tra la vegetazione più bassa e quella più alta
+- L'impatto della tempesta non è stato sicuramente l'unico dal 2018 al 2025, in particolare si segna il taglio di numerosi alberi in seguito ad un'infestazione da bostrico
+
+## 10. Bibliografia e sitografia
+
+Sito del ministero dell'agricoltura, sovranità ambientale e delle foreste: https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18158
+
+Motta R, Ascoli D, Corona P, Marchetti M, Vacchiano G (2018). Selvicoltura e schianti da vento. 
+Il caso della “tempesta Vaia”. Forest@ 15: 94-98. – doi: 10.3832/efor2990015 [online 2018-11-13]
 
 
 
