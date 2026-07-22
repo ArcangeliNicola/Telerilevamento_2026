@@ -159,7 +159,7 @@ $` DVI = NIR - RED `$
 Il DVI è un indice che si basa sull'alta riflettanza delle piante allo spettro del NIR, ed è spesso utilizzato per analizzare la copertura vegetale e lo stato di salute della vegetazione, non essendo normalizzato le comparazioni tra immagini diverse devono essere affrontate cautamente. Per calcolarlo è stata utilizzata la funzione `im.dvi()`.
 
 ```
-dvi18<-im.dvi(T18,4,1) # la funzione "im.dvi()" elabora automaticamente le bande
+dvi18<-im.dvi(T18,4,1) # la funzione "im.dvi()" elabora automaticamente le bande del rosso (1) e NIR (4) calcolando l'indice
 dvi19<-im.dvi(T19,4,1)
 dvi25<-im.dvi(T25,4,1)
 dvi<-c(dvi18, dvi19, dvi25)
@@ -176,7 +176,7 @@ $` NDVI = \frac{NIR - RED}{NIR + RED} `$
 NDVI è la versione normalizzata del DVI che può assumere valori compresi tra -1 ed 1, grazie a questa caratteristica permette di eseguire confronti più accurati tra immagini diverse tenendo conto della differente luminosità e di differenti risoluzioni radiometriche. Viene utilizzato in ambito agricolo per analizzare la produttività ed in ambito ecologico per monitorare lo stato di salute della vegetazione. Per calcolare questo indice è stata utilizzata la funzione `im.ndvi()`.
 
 ```
-ndvi18<-im.ndvi(T18,4,1)
+ndvi18<-im.ndvi(T18,4,1) # la funzione "im.ndvi()" elabora automaticamente le bande del rosso (1) e NIR (4) calcolando l'indice
 ndvi19<-im.ndvi(T19,4,1)
 ndvi25<-im.ndvi(T25,4,1)
 ndvi<-c(ndvi18, ndvi19, ndvi25)
@@ -199,7 +199,7 @@ L'indice BSI è utilizzato per evidenziare il suolo nudo o eroso. Spesso viene u
 
 ```
 # calcolo dell'indice BSI
-bsi18<-bsi(T18, 1, 3, 4, 5) # utilizzo la funzione bsi() ottenuta dal pacchetto "bsi"
+bsi18<-bsi(T18, 1, 3, 4, 5) # utilizzo la funzione bsi() ottenuta dal pacchetto "bsi" e le bande del rosso, blu, NIR e SWIR
 bsi19<-bsi(T19, 1, 3, 4, 5)
 bsi25<-bsi(T25, 1, 3, 4, 5)
 #visualizzazione dell'indice
