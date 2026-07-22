@@ -69,22 +69,22 @@ corretto orientamento. Le bande caricate sono:
 setwd("C:\\Scienze e gestione della natura\\Primo anno\\Telerilevamento\\Esame Vaia") #per configurare la cartella di lavoro principale
 list.files() # per richiamare la lista dei file contenuti nella cartella
 
-b18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B02_(Raw).jpg")) # blu 2018
-g18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B03_(Raw).jpg")) # verde 2018
-r18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B04_(Raw).jpg")) # rosso 2018
-nir18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B08_(Raw).jpg")) # Near-Infrared 2018
+b18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B02_(Raw).jpg"))    # blu 2018
+g18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B03_(Raw).jpg"))    # verde 2018
+r18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B04_(Raw).jpg"))    # rosso 2018
+nir18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B08_(Raw).jpg"))  # Near-Infrared 2018
 swir18<-flip(rast("2018-09-26-00_00_2018-09-26-23_59_Sentinel-2_L1C_B11_(Raw).jpg")) # Short-Wave Infrared 2018
 
-b19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B02_(Raw).jpg")) # blu 2019
-g19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B03_(Raw).jpg")) # verde 2019
-r19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B04_(Raw).jpg")) # rosso 2019
-nir19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B08_(Raw).jpg")) # Near-Infrared 2019
+b19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B02_(Raw).jpg"))    # blu 2019
+g19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B03_(Raw).jpg"))    # verde 2019
+r19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B04_(Raw).jpg"))    # rosso 2019
+nir19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B08_(Raw).jpg"))  # Near-Infrared 2019
 swir19<-flip(rast("2019-09-21-00_00_2019-09-21-23_59_Sentinel-2_L1C_B11_(Raw).jpg")) # Short-Wave Infrared 2019
 
-b25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B02_(Raw).jpg")) # blu 2025
-g25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B03_(Raw).jpg")) # verde 2025
-r25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B04_(Raw).jpg")) # rosso 2025
-nir25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B08_(Raw).jpg")) # Near-Infrared 2025
+b25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B02_(Raw).jpg"))    # blu 2025
+g25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B03_(Raw).jpg"))    # verde 2025
+r25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B04_(Raw).jpg"))    # rosso 2025
+nir25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B08_(Raw).jpg"))  # Near-Infrared 2025
 swir25<-flip(rast("2025-09-19-00_00_2025-09-19-23_59_Sentinel-2_L1C_B11_(Raw).jpg")) # Short-Wave Infrared 2025
 
 # viene effettuato il ricampionamento della banda dello SWIR ad una risoluzione spaziale di 10m per poterla confrontare con le altre bande (B2, B3, B4, B8)
@@ -138,7 +138,7 @@ falsati, per evidenziare la presenza di vegetazione. La funzione utilizzata è `
 
 ```
 im.multiframe(2,3) # per visualizzare tutte le immagini seguenti contemporaneamente
-plotRGB(T18, 1, 2, 3, stretch = "lin", main = "2018 (pre)") # vengono indicati solo le posizioni all'interno degli stack, l'ordine è rosso-verde-blu
+plotRGB(T18, 1, 2, 3, stretch = "lin", main = "2018 (pre)")        # vengono indicati solo le posizioni all'interno degli stack, l'ordine è rosso-verde-blu
 plotRGB(T19, 1, 2, 3, stretch = "lin", main = "2019 (post)")
 plotRGB(T25, 1, 2, 3, stretch = "lin", main = "2025 (recente)")
 plotRGB(T18, 4, 2, 3, stretch = "lin", main = "2018 falsi colori") # viene inserita la banda del NIR al posto di quella del rosso per evidenziare la vegetazione
@@ -191,9 +191,11 @@ plot(ndvi, col=inferno(100), range = c(0,1))
 
 ### BSI  (Bare Soil Index)
 
+La formula utilizzata è quella proposta da Rikimaru et al. (2002).
+
 $` BSI=\frac{((SWIR1+Red)−(NIR+Blue)}{(SWIR1+Red)+(NIR+Blue)} `$
 
-L'indice BSI è utilizzato per evidenziare il suolo nudo o eroso. Spesso viene utilizzato per evidenziare la desertificazione o i cambiamenti nello stato del suolo, in questo caso viene utilizzato a scopo esplorativo per osservare quali risultati si ottengono se applicato all'analisi di vegetazione arborea abbattuta da un evento atmosferico.
+L'indice BSI è utilizzato per evidenziare il suolo nudo o eroso. Spesso viene utilizzato per evidenziare la desertificazione o i cambiamenti nello stato del suolo, in questo caso viene utilizzato per osservare quali risultati si ottengono se applicato all'analisi di vegetazione arborea abbattuta da un evento atmosferico.
 
 ```
 # calcolo dell'indice BSI
@@ -338,21 +340,15 @@ Il passaggio della tempesta Vaia ha causato gravi danni alla vegetazione arborea
 
 ## 10. Bibliografia e sitografia
 
-Sito del ministero dell'agricoltura, sovranità ambientale e delle foreste: https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18158
-
 Motta R, Ascoli D, Corona P, Marchetti M, Vacchiano G (2018). Selvicoltura e schianti da vento. 
+
 Il caso della “tempesta Vaia”. Forest@ 15: 94-98. – doi: 10.3832/efor2990015 [online 2018-11-13]
+
+Rikimaru, A., P. Sarathi Roy, and S. Miyatake. "Tropical forest cover density mapping." Tropical ecology 43.1 (2002): 39-47.
+Sito del ministero dell'agricoltura, sovranità ambientale e delle foreste: https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18158
 
 ### Citazione finale
 
 <strong>«Ma ci saranno ancora degli innamorati che in una notte d’inverno si faranno trasportare su una slitta tirata da un generoso cavallo per la piana di Marcesina imbevuta di luce lunare? Se non ci fossero come sarebbe triste il mondo.»
 
 Mario Rigoni Stern</strong>
-
-
-
-
-
-
-
-
